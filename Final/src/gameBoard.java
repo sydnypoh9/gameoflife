@@ -1,17 +1,15 @@
-package a_robber_in_the_net_Ee;
-
 /**
  * Created by Ben on 5/15/2017.
  */
 public class gameBoard {
     public int gbx, gby;
-    gameSquare gs;
+    payDay pd1;
 
     public gameBoard()
     {
         gbx = 0;
         gby = 0;
-        gs = null;
+        pd1 = null;
     }
     public gameBoard(int xC, int yC)
     {
@@ -19,11 +17,11 @@ public class gameBoard {
         gby = yC;
     }
 
-    public gameBoard(int xC, int yC, gameSquare gsC)
+    public gameBoard(int xC, int yC, payDay pd)
     {
         gbx = xC;
         gby = yC;
-        gs = gsC;
+        pd1 = pd;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class gameBoard {
         return "gameBoard{" +
                 "x=" + gbx +
                 ", y=" + gby +
-                ", gs=" + gs +
+                ", gs=" + pd1 +
                 '}';
     }
 }

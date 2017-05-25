@@ -1,5 +1,3 @@
-package a_robber_in_the_net_Ee;
-
 import javafx.scene.control.Button;
 import java.awt.*;
 
