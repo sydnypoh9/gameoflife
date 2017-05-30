@@ -63,6 +63,7 @@ public class window extends Application{
                     ft1.setFromValue(0);
                     ft1.setToValue(1);
                     resumeMenu.setVisible(true);
+
                     ft1.play();
                 }
                 else
