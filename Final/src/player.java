@@ -6,7 +6,17 @@ public class player {
     private String name;
     public player()
     {
-
+        money = 0;
+        lifeT = 0;
+        salary = 0;
+        name = null;
+    }
+    public player(String n)
+    {
+        money = 0;
+        lifeT = 0;
+        salary = 0;
+        name = n;
     }
     public player(int m, int l, int s, String n)
     {

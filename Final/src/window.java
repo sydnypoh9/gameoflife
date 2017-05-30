@@ -3,6 +3,8 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
@@ -26,7 +28,7 @@ import java.nio.file.Paths;
  * Created by Ben on 5/25/2017.
  */
 public class window extends Application{
-    public Menu startMenu, resumeMenu, newGameMenu;
+    public Menu startMenu, resumeMenu, newGameMenu, game;
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
@@ -36,18 +38,26 @@ public class window extends Application{
         ImageView imgView = new ImageView(img);
 
         //main pane
-        final int x = 1080, y = 720;
+        final int x = 1080, y = 884;
         Pane root = new Pane();
         root.setPrefSize(x, y);
 
         //give pane background image
+        //create all the menus that will take in an int to determine what buttons they will have
+        //i realize i could polymorphism this instead of using numbers becuase it creates a bunch of usless data but i'm lazy
         startMenu = new Menu(1);
         resumeMenu = new Menu(2);
+        newGameMenu = new Menu(3);
+        game = new Menu(4);
+
       //  root.getChildren().addAll(gMenu, imgView);
-        root.getChildren().addAll(imgView, startMenu, resumeMenu);
+        root.getChildren().addAll(imgView, startMenu, resumeMenu, newGameMenu, game);
+
 
         //use start until game has been started, then use resume
         resumeMenu.setVisible(false);
+        newGameMenu.setVisible(false);
+        game.setVisible(false);
 
         // create scene
         Scene scene1 = new Scene(root);
@@ -56,13 +66,15 @@ public class window extends Application{
         scene1.setOnKeyPressed(e -> {
             if(e.getCode() == KeyCode.ESCAPE)
             {
-                if(resumeMenu.isVisible() == false)
+                if(resumeMenu.isVisible() == false && startMenu.isVisible() == false)
                 {
                     //if input = escape do below
+                    System.out.println("test");
                     FadeTransition ft1 = new FadeTransition(Duration.seconds(0.3), resumeMenu);
                     ft1.setFromValue(0);
                     ft1.setToValue(1);
                     resumeMenu.setVisible(true);
+
                     ft1.play();
                 }
                 else
@@ -97,19 +109,22 @@ public class window extends Application{
             //setting menu1/2 to same y, different x for transition fade
             m1.setTranslateX(80);
             m1.setTranslateY(200);
-            m2.setTranslateX(280);
-            m2.setTranslateY(400);
+            m2.setTranslateX(80);
+            m2.setTranslateY(200);
+            m3.setTranslateX(500);
+            m3.setTranslateY(400);
 
             //start game button
-            menuButton btStart = new menuButton("New Game");
-            btStart.setOnMouseClicked(e ->{
-                FadeTransition ft = new FadeTransition(Duration.seconds(0.0), startMenu);
+            menuButton btNewGame = new menuButton("New Game");
+            btNewGame.setOnMouseClicked(e ->{
+                FadeTransition ft = new FadeTransition(Duration.seconds(0.5), startMenu);
                 ft.setFromValue(1);
                 ft.setFromValue(0);
                 ft.setOnFinished(evt ->{
                     startMenu.setVisible(false);
                 });
                 ft.play();
+                newGameMenu.setVisible(true);
             });
             menuButton btExit = new menuButton("Exit");
             btExit.setOnMouseClicked(e->{
@@ -117,7 +132,7 @@ public class window extends Application{
             });
             menuButton btResume = new menuButton("Resume");
             btResume.setOnMouseClicked(e->{
-                FadeTransition ft = new FadeTransition(Duration.seconds(0.0), resumeMenu);
+                FadeTransition ft = new FadeTransition(Duration.seconds(0.5), resumeMenu);
                 ft.setFromValue(1);
                 ft.setFromValue(0);
                 ft.setOnFinished(evt ->{
@@ -125,19 +140,68 @@ public class window extends Application{
                 });
                 ft.play();
             });
+            menuButton btFour = new menuButton("Four Players");
+            menuButton btThree = new menuButton("Three players");
+            menuButton btTwo = new menuButton("Two players");
+            btTwo.setOnMouseClicked(e->{
+                m3.getChildren().removeAll(btFour, btTwo, btThree);
+                m3.setTranslateY(m3.getTranslateY()+50);
+                player p1 = new player();
+                player p2 = new player();
+                TextField p1name = new TextField("Enter player 1 name");
+                p1name.setTranslateX(500);
+                p1name.setTranslateY(400);
+                TextField p2name = new TextField("Enter player 2 name");
+                p2name.setTranslateX(500);
+                p2name.setTranslateY(400);
+                this.getChildren().addAll(p1name);
+                p1name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p1name.getText();
+                        p1.setName(name);
+                        p1name.setVisible(false);
+                        this.getChildren().addAll(p2name);
+                    }
+                });
+                p2name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p2name.getText();
+                        p2.setName(name);
+                        p2name.setVisible(false);
+                    }
+                });
+            });
+
+
+            menuButton btStart = new menuButton("Start Game");
+
+
             //creates fade over the background
             Rectangle bg = new Rectangle(1080, 720);
             bg.setFill(Color.GRAY);
             bg.setOpacity(0.4);
+
+            //uses imputed int to determine what buttons to add
             if(x == 1)
             {
-                m1.getChildren().addAll(btStart, btExit);
+                m1.getChildren().addAll(btNewGame, btExit);
+                this.getChildren().addAll(bg, m1);
             }
-            if(x == 2)
+            else if(x == 2)
             {
-                m1.getChildren().addAll(btResume, btExit);
+                m2.getChildren().addAll(btResume, btExit);
+                this.getChildren().remove(m1);
+                this.getChildren().addAll(bg, m2);
             }
-            this.getChildren().addAll(bg, m1);
+            else if (x == 3)
+            {
+                m3.getChildren().addAll(btTwo, btThree, btFour, btStart);
+                this.getChildren().remove(m2);
+                this.getChildren().addAll(m3);
+            }
+
 
         }
     }
