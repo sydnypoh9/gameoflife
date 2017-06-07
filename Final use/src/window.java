@@ -39,6 +39,10 @@ public class window extends Application{
         Image img = new Image(is);
         is.close();
         ImageView imgView = new ImageView(img);
+        InputStream is1 = Files.newInputStream(Paths.get("resources/board.jpg"));
+        Image img1 = new Image(is);
+        is1.close();
+        ImageView imgView1 = new ImageView(img);
 
         //main pane
         final int x = 1080, y = 884;
@@ -53,14 +57,14 @@ public class window extends Application{
         newGameMenu = new Menu(3);
         game = new Menu(4);
 
-      //  root.getChildren().addAll(gMenu, imgView);
-        root.getChildren().addAll(imgView, startMenu, resumeMenu, newGameMenu, game);
+        root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
 
 
         //use start until game has been started, then use resume
         resumeMenu.setVisible(false);
         newGameMenu.setVisible(false);
         game.setVisible(false);
+        imgView1.setVisible(false);
 
         // create scene
         Scene scene1 = new Scene(root);
@@ -73,21 +77,12 @@ public class window extends Application{
                 {
                     //if input = escape do below
                     System.out.println("test");
-                    FadeTransition ft1 = new FadeTransition(Duration.seconds(0.3), resumeMenu);
+                    FadeTransition ft1 = new FadeTransition(Duration.seconds(0.1), resumeMenu);
                     ft1.setFromValue(0);
                     ft1.setToValue(1);
                     resumeMenu.setVisible(true);
 
                     ft1.play();
-                }
-                else
-                {
-                    //IGNORE FOR NOW ...does nothing yet
-//                    FadeTransition ft2 = new FadeTransition(Duration.seconds(0.5), startMenu);
-//                    ft2.setFromValue(1);
-//                    ft2.setFromValue(0);
-//                    ft2.setOnFinished(e1 -> startMenu.setVisible(false));
-//                    ft2.play();
                 }
             }
         });
@@ -100,6 +95,7 @@ public class window extends Application{
     }
     public class Menu extends Parent
     {
+
         public Menu(int y)
         {
             int x = y;
@@ -108,6 +104,8 @@ public class window extends Application{
             VBox m1 = new VBox(15);
             VBox m2 = new VBox(15);
             VBox m3 = new VBox(15);
+            Pane m4 = new Pane();
+
 
             //setting menu1/2 to same y, different x for transition fade
             m1.setTranslateX(80);
@@ -117,7 +115,7 @@ public class window extends Application{
             m3.setTranslateX(500);
             m3.setTranslateY(400);
 
-            //start game button
+            //new game button
             menuButton btNewGame = new menuButton("New Game");
             btNewGame.setOnMouseClicked(e ->{
                 FadeTransition ft = new FadeTransition(Duration.seconds(0.5), startMenu);
@@ -143,14 +141,23 @@ public class window extends Application{
                 });
                 ft.play();
             });
+            menuButton btStart = new menuButton("Start Game");
+            btStart.setOnMouseClicked(e->{
+                this.getChildren().remove(m3);
+                this.getChildren().add(m4);
+
+            });
             menuButton btFour = new menuButton("Four Players");
             menuButton btThree = new menuButton("Three players");
             menuButton btTwo = new menuButton("Two players");
             btTwo.setOnMouseClicked(e->{
+                boolean[] startGameVis = {false};
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
                 m3.setTranslateY(m3.getTranslateY()+50);
                 player p1 = new player();
                 player p2 = new player();
+                plist.add(p1);
+                plist.add(p2);
                 TextField p1name = new TextField("Enter player 1 name");
                 p1name.setTranslateX(500);
                 p1name.setTranslateY(400);
@@ -173,19 +180,14 @@ public class window extends Application{
                         String name = p2name.getText();
                         p2.setName(name);
                         p2name.setVisible(false);
+                        this.getChildren().remove(m3);
+                        m4.setVisible(true);
                     }
                 });
-                plist.add(p1);
-                plist.add(p2);
-                System.out.println(plist);
             });
 
-
-            menuButton btStart = new menuButton("Start Game");
-
-
             //creates fade over the background
-            Rectangle bg = new Rectangle(1080, 720);
+            Rectangle bg = new Rectangle(1080, 884);
             bg.setFill(Color.GRAY);
             bg.setOpacity(0.4);
 
@@ -203,9 +205,13 @@ public class window extends Application{
             }
             else if (x == 3)
             {
-                m3.getChildren().addAll(btTwo, btThree, btFour, btStart);
+                m3.getChildren().addAll(btTwo, btThree, btFour);
                 this.getChildren().remove(m2);
                 this.getChildren().addAll(m3);
+            }
+            else if(x == 4)
+            {
+                m4.getChildren().add(btStart);
             }
 
 
