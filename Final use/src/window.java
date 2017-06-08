@@ -1,4 +1,6 @@
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -20,10 +22,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.awt.*;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.util.ArrayList;
 
 /**
@@ -32,6 +36,7 @@ import java.util.ArrayList;
 public class window extends Application{
     public Menu startMenu, resumeMenu, newGameMenu, game;
     public ArrayList<player> plist = new ArrayList<player>();
+    public boolean turn;
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
@@ -58,6 +63,26 @@ public class window extends Application{
         game = new Menu(4);
 
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
+
+        final KeyFrame frame1 = new KeyFrame(Duration.seconds(.12), e->{
+           for(int i = 10; )
+            int temp = 0;
+            if(turn)
+            {
+                turn = false;
+                System.out.println("turn end");
+            }
+            else
+            {
+
+            }
+
+        });
+        final Timeline tline = new Timeline(frame1);
+        tline.setCycleCount(Timeline.INDEFINITE);
+        tline.play();
+
+
 
 
         //use start until game has been started, then use resume
@@ -179,9 +204,8 @@ public class window extends Application{
                     {
                         String name = p2name.getText();
                         p2.setName(name);
-                        p2name.setVisible(false);
-                        this.getChildren().remove(m3);
-                        m4.setVisible(true);
+                       this.getChildren().remove(startMenu);
+                        game.setVisible(true);
                     }
                 });
             });
