@@ -36,22 +36,27 @@ import java.util.ArrayList;
 public class window extends Application{
     public Menu startMenu, resumeMenu, newGameMenu, game;
     public ArrayList<player> plist = new ArrayList<player>();
-    public boolean turn;
+    public int test;
+    public boolean turn = true, run = false;
+    public KeyFrame frame1;
+    public Scene scene1;
+    ImageView imgView, imgView1;
+    Pane root;
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
         InputStream is = Files.newInputStream(Paths.get("resources/test.jpg"));
         Image img = new Image(is);
         is.close();
-        ImageView imgView = new ImageView(img);
+        imgView = new ImageView(img);
         InputStream is1 = Files.newInputStream(Paths.get("resources/board.jpg"));
-        Image img1 = new Image(is);
+        Image img1 = new Image(is1);
         is1.close();
-        ImageView imgView1 = new ImageView(img);
+        imgView1 = new ImageView(img1);
 
         //main pane
         final int x = 1080, y = 884;
-        Pane root = new Pane();
+        root = new Pane();
         root.setPrefSize(x, y);
 
         //give pane background image
@@ -64,35 +69,37 @@ public class window extends Application{
 
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
 
-        final KeyFrame frame1 = new KeyFrame(Duration.seconds(.12), e->{
-           for(int i = 10; )
-            int temp = 0;
-            if(turn)
-            {
+
+        //use start until game has been started, then use resume
+        resumeMenu.setVisible(false);
+        newGameMenu.setVisible(false);
+        game.setVisible(false);
+        root.setVisible(true);
+        imgView1.setVisible(false);
+
+
+
+        frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
+            //int temp = 0;
+            if (turn) {
                 turn = false;
                 System.out.println("turn end");
-            }
-            else
-            {
+            } else {
+                if (plist.size() == 0) {
+                    System.exit(0);
+                }
+                turn = true;
 
             }
 
         });
         final Timeline tline = new Timeline(frame1);
         tline.setCycleCount(Timeline.INDEFINITE);
-        tline.play();
-
-
-
-
-        //use start until game has been started, then use resume
-        resumeMenu.setVisible(false);
-        newGameMenu.setVisible(false);
-        game.setVisible(false);
-        imgView1.setVisible(false);
 
         // create scene
-        Scene scene1 = new Scene(root);
+        scene1 = new Scene(root);
+
+
 
         //nested ifs for generic func keys, from test/game projects for reference checks for imput then respondes depending on input
         scene1.setOnKeyPressed(e -> {
@@ -111,10 +118,19 @@ public class window extends Application{
                 }
             }
         });
+        scene1.setOnMouseClicked(event -> {
+            System.out.println("testclick");
+            if (run == true) {
+                root.getChildren().removeAll(newGameMenu, startMenu, imgView);
+                imgView1.setVisible(true);
+                tline.play();
+            }
+        });
 
         //primaryStage set, prob will be moved
         primaryStage.setScene(scene1);
         primaryStage.show();
+
 
 
     }
@@ -172,9 +188,106 @@ public class window extends Application{
                 this.getChildren().add(m4);
 
             });
+            menuButton btTwo = new menuButton("Two players");
             menuButton btFour = new menuButton("Four Players");
             menuButton btThree = new menuButton("Three players");
-            menuButton btTwo = new menuButton("Two players");
+            btFour.setOnMouseClicked(e->
+            {
+                m3.getChildren().removeAll(btFour, btTwo, btThree);
+                m3.setTranslateY(m3.getTranslateY()+50);
+                player p1 = new player();
+                player p2 = new player();
+                player p3 = new player();
+                player p4 = new player();
+                plist.add(p1);
+                plist.add(p2);
+                plist.add(p3);
+                plist.add(p4);
+                TextField p1name = new TextField("Enter player 1 name");
+                TextField p2name = new TextField("Enter player 2 name");
+                TextField p3name = new TextField("Enter player 3 name");
+                TextField p4name = new TextField("Enter player 4 name");
+                m3.getChildren().addAll(p1name, p2name, p3name, p4name);
+                p1name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p1name.getText();
+                        p1.setName(name);
+                        p1name.setVisible(false);
+
+                    }
+                });
+                p2name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p2name.getText();
+                        p2.setName(name);
+                        p2name.setVisible(false);
+                    }
+                });
+                p3name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p3name.getText();
+                        p3.setName(name);
+                        p3name.setVisible(false);
+
+                    }
+                });
+                p4name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p1name.getText();
+                        p1.setName(name);
+                        p4name.setVisible(false);
+                        run = true;
+                        m3.getChildren().removeAll(p1name,p2name, p3name, p4name);
+
+                    }
+                });
+
+            });
+            btThree.setOnMouseClicked(e->{
+                m3.getChildren().removeAll(btFour, btTwo, btThree);
+                m3.setTranslateY(m3.getTranslateY()+50);
+                player p1 = new player();
+                player p2 = new player();
+                player p3 = new player();
+                plist.add(p1);
+                plist.add(p2);
+                plist.add(p3);
+                TextField p1name = new TextField("Enter player 1 name");
+                TextField p2name = new TextField("Enter player 2 name");
+                TextField p3name = new TextField("Enter player 3 name");
+                m3.getChildren().addAll(p1name, p2name, p3name);
+                p1name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p1name.getText();
+                        p1.setName(name);
+                        p1name.setVisible(false);
+
+                    }
+                });
+                p2name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p2name.getText();
+                        p2.setName(name);
+                    }
+                });
+                p3name.setOnKeyPressed(e1->{
+                    if(e1.getCode() == KeyCode.ENTER)
+                    {
+                        String name = p3name.getText();
+                        p3.setName(name);
+                        run = true;
+                        m3.getChildren().removeAll(p1name,p2name, p3name);
+                    }
+                });
+
+            });
+
             btTwo.setOnMouseClicked(e->{
                 boolean[] startGameVis = {false};
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
@@ -184,19 +297,15 @@ public class window extends Application{
                 plist.add(p1);
                 plist.add(p2);
                 TextField p1name = new TextField("Enter player 1 name");
-                p1name.setTranslateX(500);
-                p1name.setTranslateY(400);
                 TextField p2name = new TextField("Enter player 2 name");
-                p2name.setTranslateX(500);
-                p2name.setTranslateY(400);
-                this.getChildren().addAll(p1name);
+                m3.getChildren().addAll(p1name, p2name);
                 p1name.setOnKeyPressed(e1->{
                     if(e1.getCode() == KeyCode.ENTER)
                     {
                         String name = p1name.getText();
                         p1.setName(name);
                         p1name.setVisible(false);
-                        this.getChildren().addAll(p2name);
+
                     }
                 });
                 p2name.setOnKeyPressed(e1->{
@@ -204,8 +313,8 @@ public class window extends Application{
                     {
                         String name = p2name.getText();
                         p2.setName(name);
-                       this.getChildren().remove(startMenu);
-                        game.setVisible(true);
+                         run = true;
+                         m3.getChildren().removeAll(p1name,p2name);
                     }
                 });
             });
