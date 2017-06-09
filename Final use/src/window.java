@@ -45,8 +45,9 @@ public class window extends Application{
     public Pane root;
     public VBox p1SB, p2SB, p3SB, p4SB, scoreBM = new VBox(100);
     public Circle test;
-    public Rectangle r;
+    public Rectangle r, p1T, p2T, p3T, p4T;
     public int place, roll;
+
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
@@ -58,6 +59,11 @@ public class window extends Application{
         Image img1 = new Image(is1);
         is1.close();
         imgView1 = new ImageView(img1);
+
+        //rectangle city
+        r= new Rectangle(120, 884);
+        r.setFill(Color.WHITE);
+
 
         //main pane
         final int x = 1080, y = 884;
@@ -112,7 +118,12 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
-                        p1.getClass();
+                        p1.setMoney(10000);
+                        setScoreBoard();
+                    }
+                    if(place == 2)
+                    {
+
                     }
                // System.out.println( plist);
                 }
@@ -170,12 +181,15 @@ public class window extends Application{
     }
     public void setScoreBoard()
     {
-        //in my defense i know how bad this is but im tired :) - ben
-        r = new Rectangle(120, 884);
-        r.setFill(Color.WHITE);
+        //in my defense i know how bad this is but im tired :)
+        //pls dont hate me robinetto-ben
         int temp = plist.size();
         if(temp == 2)
         {
+            if(terriblewayofdoingthis == false)
+            {
+                scoreBM.getChildren().removeAll(p1SB, p2SB);
+            }
             p1SB = new VBox(5);
             Text player1 = new Text("Player 1:");
             Text name = new Text("Name: " + p1.getName());
@@ -191,10 +205,13 @@ public class window extends Application{
             Text salery2 = new Text("Salary: " + String.valueOf(p2.getSalary()));
             p2SB.getChildren().addAll(player2, name2, money2, LifeC2, salery2);
             scoreBM.getChildren().addAll(p1SB, p2SB);
-
         }
         if(temp == 3)
         {
+            if(terriblewayofdoingthis == false)
+            {
+                scoreBM.getChildren().removeAll(p1SB, p2SB, p3SB);
+            }
             p1SB = new VBox(5);
             Text player1 = new Text("Player 1:");
             Text name = new Text("Name: " + p1.getName());
@@ -220,6 +237,10 @@ public class window extends Application{
         }
         if(temp == 4)
         {
+            if(terriblewayofdoingthis == false)
+            {
+                scoreBM.getChildren().removeAll(p1SB, p2SB, p3SB, p4SB);
+            }
             p1SB = new VBox(5);
             Text player1 = new Text("Player 1:");
             Text name = new Text("Name: " + p1.getName());
@@ -252,6 +273,9 @@ public class window extends Application{
             //see above comment
         }
     }
+
+
+
     public class Menu extends Parent
     {
         //declares all 3 menus one will be main menu, 2nd will be options, 3d will be create new game
