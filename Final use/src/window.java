@@ -48,7 +48,7 @@ public class window extends Application{
     private Circle p1circle = new Circle(9), p2circle = new Circle(9);
     private Rectangle r;
     private int place = 1, rollint = 0;
-    private final int q1x = 300,q2x = 720, q1y = 100, tip = 300;
+    private final int q1x = 300,q2x = 720, q1y = 100, tip = 300, p2offset = 21;
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -69,7 +69,7 @@ public class window extends Application{
         p1circle.setTranslateX(901);
         p1circle.setTranslateY(397);
         p1circle.setFill(Color.RED);
-        p2circle.setTranslateX(880);
+        p2circle.setTranslateX(901-p2offset);
         p2circle.setTranslateY(397);
         p2circle.setFill(Color.BLUE);
         menuButton spin = new menuButton("Tip: Click the spin button \nto spin the wheel!!", 200, 200);
@@ -142,10 +142,6 @@ public class window extends Application{
         workA.add(new gameBoard(949, 190));
         workA.add(new gameBoard(1010, 168));
 
-
-
-
-
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
             if(terriblewayofdoingthis)
             {
@@ -172,7 +168,7 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
-                        if(terriblewayofdoingthis2 == true)
+                        if( terriblewayofdoingthis2 == true)
                         {
                             menuButton College = new menuButton("Player 1 go to college?",125, 125, Color.WHITE);
                             College.setTranslateX(q1x);
@@ -184,6 +180,7 @@ public class window extends Application{
                             College.setOnMouseClicked(e->{
                                 root.getChildren().removeAll(College, work);
                                 collegeBool = true;
+
                             });
                             work.setOnMouseClicked(e->{
                                 root.getChildren().removeAll(College, work);
@@ -200,23 +197,34 @@ public class window extends Application{
                         {
                             if(collegeBool == true)
                             {
-                                System.out.println("roll int in else " + rollint);
+                                //dont
                                 p1circle.setTranslateX(collegeA.get(rollint-1).getGbx());
                                 p1circle.setTranslateY(collegeA.get(rollint-1).getGby());
                                 p1.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
+                                System.out.println("errortestcollegep1");
                             }
-                            if(workBool == true)
-                            {
+                            if(workBool == true) {
+                                if(rollint > 4)
+                                {
+                                    rollint = 4;
+                                }
+                                if(rollint >= 1)
+                                {
+                                    System.out.print("Works");
+                                    p1.setMoney(p1.getMoney()+p1.getSalary());
+                                    setScoreBoard();
+                                }
+                                System.out.println("errorworkp1");
                                 p1circle.setTranslateX(workA.get(rollint-1).getGbx());
                                 p1circle.setTranslateY(workA.get(rollint-1).getGby());
+                                System.out.println(workA.get(rollint-1).getGbx());
                                 p1.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
                             }
                         }
-
                     }
                     if(place == 2)
                     {
@@ -248,7 +256,7 @@ public class window extends Application{
                         {
                             if(collegeBoo2 == true)
                             {
-                                p2circle.setTranslateX(collegeA.get(rollint-1).getGbx());
+                                p2circle.setTranslateX(collegeA.get(rollint-1).getGbx()-p2offset);
                                 p2circle.setTranslateY(collegeA.get(rollint-1).getGby());
                                 p2.setLoc(rollint-1);
                                 turn = true;
@@ -256,7 +264,12 @@ public class window extends Application{
                             }
                             if(workBool == true)
                             {
-                                p2circle.setTranslateX(workA.get(rollint-1).getGbx());
+                                if(rollint > 4)
+                                {
+                                    rollint = 4;
+                                }
+                                System.out.println("errortestworkp2");
+                                p2circle.setTranslateX(workA.get(rollint-1).getGbx()-p2offset);
                                 p2circle.setTranslateY(workA.get(rollint-1).getGby());
                                 p2.setLoc(rollint-1);
                                 turn = true;
@@ -538,7 +551,6 @@ public class window extends Application{
 
                     }
                 });
-
             });
             btThree.setOnMouseClicked(e->{
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
