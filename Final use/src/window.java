@@ -39,7 +39,7 @@ public class window extends Application{
     private Menu startMenu, resumeMenu, newGameMenu, game;
     private ArrayList<player> plist = new ArrayList<player>();
     private player p1, p2, p3, p4;
-    private boolean turn = false, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true, collegeBool = false, workBool = false, collegeBoo2 = false, workBoo1 = false, terriblewayofdoingthis3 = true;
+    private boolean turn = false, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true, collegeBool = false, workBool = false, collegeBoo2 = false, workBoo2 = false, terriblewayofdoingthis3 = true;
     private KeyFrame frame1;
     private Scene scene1, tutorial;
     private ImageView imgView, imgView1;
@@ -49,6 +49,9 @@ public class window extends Application{
     private Rectangle r;
     private int place = 1, rollint = 0;
     private final int q1x = 300,q2x = 720, q1y = 100, tip = 300, p2offset = 21;
+    ArrayList<gameBoard> collegeA;
+    ArrayList<gameBoard> workA;
+    ArrayList<gameBoard> wholeBoard;
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -66,6 +69,7 @@ public class window extends Application{
         //rectangle and circle city
         r= new Rectangle(120, 884);
         r.setFill(Color.WHITE);
+        r.setOpacity(.3);
         p1circle.setTranslateX(901);
         p1circle.setTranslateY(397);
         p1circle.setFill(Color.RED);
@@ -122,25 +126,8 @@ public class window extends Application{
         root.setVisible(true);
         imgView1.setVisible(false);
 
-        ArrayList<gameBoard> collegeA = new ArrayList<gameBoard>();
-        collegeA.add(new gameBoard(932, 545));
-        collegeA.add(new gameBoard(947, 596));
-        collegeA.add(new gameBoard(998, 596));
-        collegeA.add(new gameBoard(1011, 543));
-        collegeA.add(new gameBoard(1011, 498));
-        collegeA.add(new gameBoard(1011, 452));
-        collegeA.add(new gameBoard(1011, 407));
-        collegeA.add(new gameBoard(1011, 361));
-        collegeA.add(new gameBoard(1011, 316));
-        collegeA.add(new gameBoard(1011, 268));
-        collegeA.add(new gameBoard(1011, 227));
-        collegeA.add(new gameBoard(1010, 168));
 
-        ArrayList<gameBoard> workA = new ArrayList<gameBoard>();
-        workA.add(new gameBoard(932, 305));
-        workA.add(new gameBoard(930, 248));
-        workA.add(new gameBoard(949, 190));
-        workA.add(new gameBoard(1010, 168));
+        setArrays();
 
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
             if(terriblewayofdoingthis)
@@ -171,9 +158,11 @@ public class window extends Application{
                         if( terriblewayofdoingthis2 == true)
                         {
                             menuButton College = new menuButton("Player 1 go to college?",125, 125, Color.WHITE);
+                            College.setOpacity(10);
                             College.setTranslateX(q1x);
                             College.setTranslateY(q1y);
                             menuButton work = new menuButton("Player 1 go to work?",125, 125, Color.WHITE);
+                            work.setOpacity(10);
                             work.setTranslateX(q2x);
                             work.setTranslateY(q1y);
                             root.getChildren().addAll(College, work, btRoll);
@@ -219,7 +208,6 @@ public class window extends Application{
                                 System.out.println("errorworkp1");
                                 p1circle.setTranslateX(workA.get(rollint-1).getGbx());
                                 p1circle.setTranslateY(workA.get(rollint-1).getGby());
-                                System.out.println(workA.get(rollint-1).getGbx());
                                 p1.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
@@ -243,38 +231,45 @@ public class window extends Application{
                         });
                         btwork2.setOnMouseClicked(e->{
                             root.getChildren().removeAll(btCollege2, btwork2);
-                            workBool = true;
+                            workBoo2 = true;
                         });
                         terriblewayofdoingthis3 = false;
                          }
-
-                        if(rollint == 0)
+                       if(rollint == 0)
                         {
+                            System.out.println("roll int in if " + rollint);
 
                         }
                         else
                         {
                             if(collegeBoo2 == true)
                             {
-                                p2circle.setTranslateX(collegeA.get(rollint-1).getGbx()-p2offset);
-                                p2circle.setTranslateY(collegeA.get(rollint-1).getGby());
+                                p2circle.setTranslateX(collegeA.get(rollint-1).getGbx());
+                                p2circle.setTranslateY(collegeA.get(rollint-1).getGby()-p2offset);
                                 p2.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
                             }
-                            if(workBool == true)
+                            if(workBoo2 == true)
                             {
                                 if(rollint > 4)
                                 {
                                     rollint = 4;
                                 }
+                                if(rollint >= 1)
+                                {
+                                    System.out.print("Works payday");
+                                    p1.setMoney(p1.getMoney()+p1.getSalary());
+                                    setScoreBoard();
+                                }
                                 System.out.println("errortestworkp2");
-                                p2circle.setTranslateX(workA.get(rollint-1).getGbx()-p2offset);
-                                p2circle.setTranslateY(workA.get(rollint-1).getGby());
+                                p2circle.setTranslateX(workA.get(rollint-1).getGbx());
+                                p2circle.setTranslateY(workA.get(rollint-1).getGby()-p2offset);
                                 p2.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
                             }
+
                         }
                     }
                // System.out.println( plist);
@@ -425,6 +420,156 @@ public class window extends Application{
             scoreBM.getChildren().addAll(p1SB, p2SB, p3SB, p4SB);
             //see above comment
         }
+    }
+    public void setJob()
+    {
+        for(int i = 0; i < plist.size(); i++)
+        {
+            if(workBool == true)
+            {
+
+            }
+        }
+    }
+    public void setArrays()
+    {
+        collegeA = new ArrayList<gameBoard>();
+        collegeA.add(new gameBoard(932, 545));
+        collegeA.add(new gameBoard(947, 596));
+        collegeA.add(new gameBoard(998, 596));
+        collegeA.add(new gameBoard(1011, 543));
+        collegeA.add(new gameBoard(1011, 498));
+        collegeA.add(new gameBoard(1011, 452));
+        collegeA.add(new gameBoard(1011, 407));
+        collegeA.add(new gameBoard(1011, 361));
+        collegeA.add(new gameBoard(1011, 316));
+        collegeA.add(new gameBoard(1011, 268));
+        collegeA.add(new gameBoard(1011, 227));
+        collegeA.add(new gameBoard(1010, 168));
+
+        workA = new ArrayList<gameBoard>();
+        workA.add(new gameBoard(932, 305));
+        workA.add(new gameBoard(930, 248));
+        workA.add(new gameBoard(949, 190));
+        workA.add(new gameBoard(1010, 168));
+
+        wholeBoard = new ArrayList<gameBoard>();
+        wholeBoard.add(new gameBoard(1010, 106));
+        wholeBoard.add(new gameBoard(972, 64));
+        wholeBoard.add(new gameBoard(918, 60));
+        wholeBoard.add(new gameBoard(867, 75));
+        wholeBoard.add(new gameBoard(827, 68));
+        wholeBoard.add(new gameBoard(782, 51));
+        wholeBoard.add(new gameBoard(759, 82));
+        wholeBoard.add(new gameBoard(795, 121));
+        wholeBoard.add(new gameBoard(836, 150));
+        wholeBoard.add(new gameBoard(872, 192));
+        wholeBoard.add(new gameBoard(830, 255));
+        wholeBoard.add(new gameBoard(765, 234));
+        wholeBoard.add(new gameBoard(727, 205));
+        wholeBoard.add(new gameBoard(664, 81));
+        wholeBoard.add(new gameBoard(606, 57));
+        wholeBoard.add(new gameBoard(569, 84));
+        wholeBoard.add(new gameBoard(563, 136));
+        wholeBoard.add(new gameBoard(563, 186));
+        wholeBoard.add(new gameBoard(563, 239));
+        wholeBoard.add(new gameBoard(563, 301));
+        wholeBoard.add(new gameBoard(563, 365));
+        wholeBoard.add(new gameBoard(563, 407));
+        wholeBoard.add(new gameBoard(563, 462));
+        wholeBoard.add(new gameBoard(563, 511));
+        wholeBoard.add(new gameBoard(550, 559));
+        wholeBoard.add(new gameBoard(533, 610));
+        wholeBoard.add(new gameBoard(533, 663));
+        wholeBoard.add(new gameBoard(518, 761));
+        wholeBoard.add(new gameBoard(471, 795));
+        wholeBoard.add(new gameBoard(413, 795));
+        wholeBoard.add(new gameBoard(371, 764));
+        wholeBoard.add(new gameBoard(357, 697));
+        wholeBoard.add(new gameBoard(333, 654));
+        wholeBoard.add(new gameBoard(277, 652));
+        wholeBoard.add(new gameBoard(224, 652));
+        wholeBoard.add(new gameBoard(167, 643));
+        wholeBoard.add(new gameBoard(113, 643));
+        wholeBoard.add(new gameBoard(66, 629));
+        wholeBoard.add(new gameBoard(89, 569));
+        wholeBoard.add(new gameBoard(144, 539));
+        wholeBoard.add(new gameBoard(199, 539));
+        wholeBoard.add(new gameBoard(234, 497));
+        wholeBoard.add(new gameBoard(230, 444));
+        wholeBoard.add(new gameBoard(223, 337));
+        wholeBoard.add(new gameBoard(203, 287));
+        wholeBoard.add(new gameBoard(157, 244));
+        wholeBoard.add(new gameBoard(117, 182));
+        wholeBoard.add(new gameBoard(124, 132));
+        wholeBoard.add(new gameBoard(161, 185));
+        wholeBoard.add(new gameBoard(221, 62));
+        wholeBoard.add(new gameBoard(283, 59));
+        wholeBoard.add(new gameBoard(330, 59));
+        wholeBoard.add(new gameBoard(387, 60));
+        wholeBoard.add(new gameBoard(59, 429));
+        wholeBoard.add(new gameBoard(487, 67));
+        wholeBoard.add(new gameBoard(504, 106));
+        wholeBoard.add(new gameBoard(504, 154));
+        wholeBoard.add(new gameBoard(504, 202));
+        wholeBoard.add(new gameBoard(504, 243));
+        wholeBoard.add(new gameBoard(461, 262));
+        wholeBoard.add(new gameBoard(447, 314));
+        wholeBoard.add(new gameBoard(448, 362));
+        wholeBoard.add(new gameBoard(447, 408));
+        wholeBoard.add(new gameBoard(447, 471));
+        wholeBoard.add(new gameBoard(400, 466));
+        wholeBoard.add(new gameBoard(392, 420));
+        wholeBoard.add(new gameBoard(392, 420));
+        wholeBoard.add(new gameBoard(392, 374));
+        wholeBoard.add(new gameBoard(392, 328));
+        wholeBoard.add(new gameBoard(392, 283));
+        wholeBoard.add(new gameBoard(381, 237));
+        wholeBoard.add(new gameBoard(325, 231));
+        wholeBoard.add(new gameBoard(281, 219));
+        wholeBoard.add(new gameBoard(276, 183));
+        wholeBoard.add(new gameBoard(320, 174));
+        wholeBoard.add(new gameBoard(358, 162));
+        wholeBoard.add(new gameBoard(355, 125));
+        wholeBoard.add(new gameBoard(312, 117));
+        wholeBoard.add(new gameBoard(255, 121));
+        wholeBoard.add(new gameBoard(221, 165));
+        wholeBoard.add(new gameBoard(182, 198));
+        wholeBoard.add(new gameBoard(139, 292));
+        wholeBoard.add(new gameBoard(74, 317));
+        wholeBoard.add(new gameBoard(68, 375));
+        wholeBoard.add(new gameBoard(68, 423));
+        wholeBoard.add(new gameBoard(68, 469));
+        wholeBoard.add(new gameBoard(68, 521));
+        wholeBoard.add(new gameBoard(133, 589));
+        wholeBoard.add(new gameBoard(191, 594));
+        wholeBoard.add(new gameBoard(260, 595));
+        wholeBoard.add(new gameBoard(320, 596));
+        wholeBoard.add(new gameBoard(387, 619));
+        wholeBoard.add(new gameBoard(414, 676));
+        wholeBoard.add(new gameBoard(428, 731));
+        wholeBoard.add(new gameBoard(475, 721));
+        wholeBoard.add(new gameBoard(470, 667));
+        wholeBoard.add(new gameBoard(471, 600));
+        wholeBoard.add(new gameBoard(579, 596));
+        wholeBoard.add(new gameBoard(631, 628));
+        wholeBoard.add(new gameBoard(643, 628));
+        wholeBoard.add(new gameBoard(638, 739));
+        wholeBoard.add(new gameBoard(626, 786));
+        wholeBoard.add(new gameBoard(654, 826));
+        wholeBoard.add(new gameBoard(704, 835));
+        wholeBoard.add(new gameBoard(750, 835));
+        wholeBoard.add(new gameBoard(808, 835));
+        wholeBoard.add(new gameBoard(857, 835));
+        wholeBoard.add(new gameBoard(909, 834));
+        wholeBoard.add(new gameBoard(959, 833));
+        wholeBoard.add(new gameBoard(1005, 815));
+        wholeBoard.add(new gameBoard(1011, 763));
+        wholeBoard.add(new gameBoard(995, 711));
+        wholeBoard.add(new gameBoard(941, 720));
+        wholeBoard.add(new gameBoard(923, 766));
+        wholeBoard.add(new gameBoard(876, 772));
+        wholeBoard.add(new gameBoard(863, 670));
     }
 
 
