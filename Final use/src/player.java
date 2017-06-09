@@ -54,6 +54,10 @@ public class player {
     }
 
     public void setName(String name) {
+        if(name.length() > 16)
+        {
+            name = name.substring(0, 15);
+        }
         this.name = name;
     }
 

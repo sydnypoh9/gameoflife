@@ -37,12 +37,15 @@ import java.util.ArrayList;
 public class window extends Application{
     public Menu startMenu, resumeMenu, newGameMenu, game;
     public ArrayList<player> plist = new ArrayList<player>();
-    public boolean turn = true, run = false;
+    player p1, p2, p3, p4;
+    public boolean turn = true, run = false, terriblewayofdoingthis = true;
     public KeyFrame frame1;
     public Scene scene1;
-    public  ImageView imgView, imgView1;
+    public ImageView imgView, imgView1;
     public Pane root;
+    public VBox p1SB, p2SB, p3SB, p4SB, scoreBM = new VBox(100);
     public Circle test;
+    public Rectangle r;
     public int place, roll;
     public void start(Stage primaryStage) throws Exception
     {
@@ -84,7 +87,12 @@ public class window extends Application{
 
 
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
-            //int temp = 0;
+            if(terriblewayofdoingthis)
+            {
+                setScoreBoard();
+                root.getChildren().addAll(r, scoreBM);
+                terriblewayofdoingthis = false;
+            }
             if (turn)
             {
                if(place < plist.size())
@@ -96,34 +104,36 @@ public class window extends Application{
                    place = 1;
                }
                 turn = false;
-                System.out.println(place);
+               // System.out.println(place);
             }
             else
             {
                 if (plist.size() == 2)
                 {
-                System.out.println( plist);
+                    if(place == 1)
+                    {
+                        p1.getClass();
+                    }
+               // System.out.println( plist);
                 }
                 else if(plist.size() == 3)
                 {
-                    System.out.println( plist);
+                   //System.out.println( plist);
                 }
                 else  if(plist.size()== 4)
                 {
-                    System.out.println( plist);
+                //    System.out.println( plist);
                 }
                 else
                 {
                     System.exit(0);
                 }
                 turn = true;
-
             }
 
         });
         final Timeline tline = new Timeline(frame1);
         tline.setCycleCount(Timeline.INDEFINITE);
-
         // create scene
 
 
@@ -135,7 +145,7 @@ public class window extends Application{
                 if(resumeMenu.isVisible() == false && startMenu.isVisible() == false)
                 {
                     //if input = escape do below
-                    System.out.println("test");
+                    //System.out.println("test");
                     FadeTransition ft1 = new FadeTransition(Duration.seconds(0.1), resumeMenu);
                     ft1.setFromValue(0);
                     ft1.setToValue(1);
@@ -146,7 +156,7 @@ public class window extends Application{
             }
         });
         scene1.setOnMouseClicked(event -> {
-            System.out.println("testclick");
+            //System.out.println("testclick");
             if (run == true) {
                 root.getChildren().removeAll(newGameMenu, startMenu, imgView);
                 imgView1.setVisible(true);
@@ -157,23 +167,108 @@ public class window extends Application{
         //primaryStage set, prob will be moved
         primaryStage.setScene(scene1);
         primaryStage.show();
+    }
+    public void setScoreBoard()
+    {
+        //in my defense i know how bad this is but im tired :) - ben
+        r = new Rectangle(120, 884);
+        r.setFill(Color.WHITE);
+        int temp = plist.size();
+        if(temp == 2)
+        {
+            p1SB = new VBox(5);
+            Text player1 = new Text("Player 1:");
+            Text name = new Text("Name: " + p1.getName());
+            Text money = new Text("Money: " + String.valueOf(p1.getMoney()));
+            Text LifeC = new Text("LifeCards: " + String.valueOf(p1.getLifeT()));
+            Text salery = new Text("Salary: " + String.valueOf(p1.getSalary()));
+            p1SB.getChildren().addAll(player1, name, money, LifeC, salery);
+            p2SB = new VBox(5);
+            Text player2 = new Text("Player 2:");
+            Text name2 = new Text("Name: " + p2.getName());
+            Text money2 = new Text("Money: " + String.valueOf(p2.getMoney()));
+            Text LifeC2 = new Text("LifeCards: " + String.valueOf(p2.getLifeT()));
+            Text salery2 = new Text("Salary: " + String.valueOf(p2.getSalary()));
+            p2SB.getChildren().addAll(player2, name2, money2, LifeC2, salery2);
+            scoreBM.getChildren().addAll(p1SB, p2SB);
 
-
-
+        }
+        if(temp == 3)
+        {
+            p1SB = new VBox(5);
+            Text player1 = new Text("Player 1:");
+            Text name = new Text("Name: " + p1.getName());
+            Text money = new Text("Money: " + String.valueOf(p1.getMoney()));
+            Text LifeC = new Text("LifeCards: " + String.valueOf(p1.getLifeT()));
+            Text salery = new Text("Salary: " + String.valueOf(p1.getSalary()));
+            p1SB.getChildren().addAll(player1, name, money, LifeC, salery);
+            p2SB = new VBox(5);
+            Text player2 = new Text("Player 2:");
+            Text name2 = new Text("Name: " + p2.getName());
+            Text money2 = new Text("Money: " + String.valueOf(p2.getMoney()));
+            Text LifeC2 = new Text("LifeCards: " + String.valueOf(p2.getLifeT()));
+            Text salery2 = new Text("Salary: " + String.valueOf(p2.getSalary()));
+            p2SB.getChildren().addAll(player2, name2, money2, LifeC2, salery2);
+            p3SB = new VBox(5);
+            Text player3 = new Text("Player 3:");
+            Text name3 = new Text("Name: " + p3.getName());
+            Text money3 = new Text("Money: " + String.valueOf(p3.getMoney()));
+            Text LifeC3 = new Text("LifeCards: " + String.valueOf(p3.getLifeT()));
+            Text salery3 = new Text("Salary: " + String.valueOf(p3.getSalary()));
+            p3SB.getChildren().addAll(player3, name3, money3, LifeC3, salery3);
+            scoreBM.getChildren().addAll(p1SB, p2SB, p3SB);
+        }
+        if(temp == 4)
+        {
+            p1SB = new VBox(5);
+            Text player1 = new Text("Player 1:");
+            Text name = new Text("Name: " + p1.getName());
+            Text money = new Text("Money: " + String.valueOf(p1.getMoney()));
+            Text LifeC = new Text("LifeCards: " + String.valueOf(p1.getLifeT()));
+            Text salery = new Text("Salary: " + String.valueOf(p1.getSalary()));
+            p1SB.getChildren().addAll(player1, name, money, LifeC, salery);
+            p2SB = new VBox(5);
+            Text player2 = new Text("Player 2:");
+            Text name2 = new Text("Name: " + p2.getName());
+            Text money2 = new Text("Money: " + String.valueOf(p2.getMoney()));
+            Text LifeC2 = new Text("LifeCards: " + String.valueOf(p2.getLifeT()));
+            Text salery2 = new Text("Salary: " + String.valueOf(p2.getSalary()));
+            p2SB.getChildren().addAll(player2, name2, money2, LifeC2, salery2);
+            p3SB = new VBox(5);
+            Text player3 = new Text("Player 3:");
+            Text name3 = new Text("Name: " + p3.getName());
+            Text money3 = new Text("Money: " + String.valueOf(p3.getMoney()));
+            Text LifeC3 = new Text("LifeCards: " + String.valueOf(p3.getLifeT()));
+            Text salery3 = new Text("Salary: " + String.valueOf(p3.getSalary()));
+            p3SB.getChildren().addAll(player3, name3, money3, LifeC3, salery3);
+            p4SB = new VBox(5);
+            Text player4 = new Text("Player 4:");
+            Text name4 = new Text("Name: " + p4.getName());
+            Text money4 = new Text("Money: " + String.valueOf(p1.getMoney()));
+            Text LifeC4 = new Text("LifeCards: " + String.valueOf(p1.getLifeT()));
+            Text salery4 = new Text("Salary: " + String.valueOf(p1.getSalary()));
+            p4SB.getChildren().addAll(player4, name4, money4, LifeC4, salery4);
+            scoreBM.getChildren().addAll(p1SB, p2SB, p3SB, p4SB);
+            //see above comment
+        }
     }
     public class Menu extends Parent
     {
+        //declares all 3 menus one will be main menu, 2nd will be options, 3d will be create new game
+        //will probably make a 4th for inside options if im not lazy
+
+        int i = 0;
+        VBox m1 = new VBox(15);
+        VBox m2 = new VBox(15);
+        VBox m3 = new VBox(15);
+        VBox m4 = new VBox(15);
+        Pane m5 = new Pane();
 
         public Menu(int y)
         {
             int x = y;
             //declares all 3 menus one will be main menu, 2nd will be options, 3d will be create new game
             //will probably make a 4th for inside options if im not lazy
-            VBox m1 = new VBox(15);
-            VBox m2 = new VBox(15);
-            VBox m3 = new VBox(15);
-            VBox m4 = new VBox(15);
-            Pane m5 = new Pane();
 
 
 
@@ -216,11 +311,18 @@ public class window extends Application{
                 ft.play();
             });
             menuButton btRoll = new menuButton("Roll", 50, 20, Color.GREY);
-                btRoll.setOnMouseClicked(e->
+            btRoll.setOnMouseClicked(e->
             {
-                roll = (int)(Math.random()*10)+1;
+                if(roll != 0)
+                {
+                    System.out.println("stop!!");
+                }
+                else
+                {
+                    roll = (int)(Math.random()*10)+1;
+                }
             });
-            menuButton btStart = new menuButton("Start Game");
+            menuButton btStart; btStart = new menuButton("Start Game");
             btStart.setOnMouseClicked(e->{
                 this.getChildren().remove(m4);
                 this.getChildren().add(m5);
@@ -229,14 +331,13 @@ public class window extends Application{
             menuButton btTwo = new menuButton("Two players");
             menuButton btFour = new menuButton("Four Players");
             menuButton btThree = new menuButton("Three players");
-            btFour.setOnMouseClicked(e->
-            {
+            btFour.setOnMouseClicked(e-> {
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
                 m3.setTranslateY(m3.getTranslateY()+50);
-                player p1 = new player();
-                player p2 = new player();
-                player p3 = new player();
-                player p4 = new player();
+                p1 = new player();
+                p2 = new player();
+                p3 = new player();
+                p4 = new player();
                 plist.add(p1);
                 plist.add(p2);
                 plist.add(p3);
@@ -289,9 +390,9 @@ public class window extends Application{
             btThree.setOnMouseClicked(e->{
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
                 m3.setTranslateY(m3.getTranslateY()+50);
-                player p1 = new player();
-                player p2 = new player();
-                player p3 = new player();
+                p1 = new player();
+                p2 = new player();
+                p3 = new player();
                 plist.add(p1);
                 plist.add(p2);
                 plist.add(p3);
@@ -328,12 +429,11 @@ public class window extends Application{
                 });
 
             });
-
             btTwo.setOnMouseClicked(e->{
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
                 m3.setTranslateY(m3.getTranslateY()+50);
-                player p1 = new player();
-                player p2 = new player();
+                p1 = new player();
+                p2 = new player();
                 plist.add(p1);
                 plist.add(p2);
                 TextField p1name = new TextField("Enter player 1 name");
@@ -391,8 +491,6 @@ public class window extends Application{
                 m5.getChildren().add(btRoll);
 
             }
-
-
         }
     }
     public static class menuButton extends StackPane
