@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.swing.text.Position;
 import java.awt.*;
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -35,20 +36,20 @@ import java.util.ArrayList;
  * Created by Ben on 5/25/2017.
  */
 public class window extends Application{
-    public Menu startMenu, resumeMenu, newGameMenu, game;
-    public ArrayList<player> plist = new ArrayList<player>();
-    player p1, p2, p3, p4;
-    public boolean turn = true, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true;
-    public KeyFrame frame1;
-    public Scene scene1, tutorial;
-    public ImageView imgView, imgView1;
-    public Pane root, root2;
-    public VBox p1SB, p2SB, p3SB, p4SB, scoreBM = new VBox(100);
-    public Circle test = new Circle(15);
-    public Rectangle r;
-    public int place, roll;
-    final public int q1x = 300,q2x = 720, q1y = 100;
-    public gameBoard gbCollege, gbJob;
+    private Menu startMenu, resumeMenu, newGameMenu, game;
+    private ArrayList<player> plist = new ArrayList<player>();
+    private player p1, p2, p3, p4;
+    private boolean turn = false, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true;
+    private KeyFrame frame1;
+    private Scene scene1, tutorial;
+    private ImageView imgView, imgView1;
+    private Pane root, root2;
+    private VBox p1SB, p2SB, p3SB, p4SB, scoreBM = new VBox(100);
+    private Circle test = new Circle(15);
+    private Rectangle r;
+    private int place = 1, rollint = 0;
+    private final int q1x = 300,q2x = 720, q1y = 100, tip = 300;
+
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -67,7 +68,29 @@ public class window extends Application{
         r.setFill(Color.WHITE);
         test.setTranslateX(901);
         test.setTranslateY(397);
-
+         menuButton spin = new menuButton("Tip: Click the spin button \nto spin the wheel!!", 200, 200);
+        spin.setTranslateY(tip);
+        spin.setTranslateX(tip);
+        menuButton btRoll = new menuButton("Roll", 50, 20, Color.GREY);
+        btRoll.setOnMouseClicked(e->
+        {
+            if(rollint == 0)
+            {
+                rollint = (int)(Math.random()*10)+1;
+                menuButton youGot = new menuButton("You rolled a: " + rollint, 200, 200);
+                youGot.setTranslateX(tip); youGot.setTranslateY(tip);
+                root.getChildren().add(youGot);
+                youGot.setOnMouseEntered(e1->{
+                    root.getChildren().remove(youGot);
+                });
+            }
+            else
+            {
+                System.out.println("Stop pressing the button");
+            }
+        });
+        btRoll.setTranslateX(700);
+        btRoll.setTranslateY(383);
 
         //main pane
         final int x = 1080, y = 884;
@@ -81,7 +104,7 @@ public class window extends Application{
         resumeMenu = new Menu(2);
         newGameMenu = new Menu(3);
         game = new Menu(4);
-        
+            //everything is everywhere i give up commenting
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
         scene1 = new Scene(root);
         //do at some point
@@ -95,6 +118,25 @@ public class window extends Application{
         root.setVisible(true);
         imgView1.setVisible(false);
 
+        ArrayList<gameBoard> collegeA = new ArrayList<gameBoard>();
+        collegeA.add(new gameBoard(932, 545));
+        collegeA.add(new gameBoard(947, 596));
+        collegeA.add(new gameBoard(998, 596));
+        collegeA.add(new gameBoard(1011, 543));
+        collegeA.add(new gameBoard(1011, 498));
+        collegeA.add(new gameBoard(1011, 452));
+        collegeA.add(new gameBoard(1011, 407));
+        collegeA.add(new gameBoard(1011, 361));
+        collegeA.add(new gameBoard(1011, 316));
+        collegeA.add(new gameBoard(1011, 268));
+        collegeA.add(new gameBoard(1011, 227));
+        collegeA.add(new gameBoard(1010, 168));
+
+        ArrayList<gameBoard> workA = new ArrayList<gameBoard>();
+        workA.add(new gameBoard(932, 305));
+        workA.add(new gameBoard(930, 248));
+        workA.add(new gameBoard(949, 190));
+        workA.add(new gameBoard(1010, 168));
 
 
 
@@ -107,10 +149,11 @@ public class window extends Application{
                 root.getChildren().addAll(r, scoreBM, test);
                 terriblewayofdoingthis = false;
             }
-            if (turn)
+            if (turn == true)
             {
-               if(place < plist.size())
+               if(place <= plist.size())
                {
+                   System.out.println("why are you running");
                    place++;
                }
                else
@@ -118,7 +161,6 @@ public class window extends Application{
                    place = 1;
                }
                 turn = false;
-               // System.out.println(place);
             }
             else
             {
@@ -126,7 +168,7 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
-                        if(terriblewayofdoingthis2)
+                        if(terriblewayofdoingthis2 == true)
                         {
                             menuButton College = new menuButton("Go to college?",125, 125, Color.WHITE);
                             College.setTranslateX(q1x);
@@ -134,21 +176,35 @@ public class window extends Application{
                             menuButton work = new menuButton("Go to work?",125, 125, Color.WHITE);
                             work.setTranslateX(q2x);
                             work.setTranslateY(q1y);
-                            root.getChildren().addAll(College, work);
+                            root.getChildren().addAll(College, work, btRoll);
                             College.setOnMouseClicked(e->{
-
+                                root.getChildren().removeAll(College, work);
                             });
                             work.setOnMouseClicked(e->{
-
+                                root.getChildren().removeAll(College, work);
                             });
+                            terriblewayofdoingthis2 = false;
+                        }
+                        if(rollint == 0)
+                        {
+                            System.out.println("roll int in if " + rollint);
+
+                        }
+                        else
+                        {
+                            System.out.println("roll int in else " + rollint);
+                            test.setTranslateX(collegeA.get(rollint-1).getGbx());
+                            test.setTranslateY(collegeA.get(rollint-1).getGby());
+                            p1.setLoc(rollint-1);
+                            turn = true;
+                            rollint = 0;
                         }
 
-                        p1.setMoney(10000);
-                        setScoreBoard();
                     }
                     if(place == 2)
                     {
-
+                        System.out.println(rollint);
+                        System.out.println("place 2");
                     }
                // System.out.println( plist);
                 }
@@ -313,7 +369,6 @@ public class window extends Application{
         VBox m2 = new VBox(15);
         VBox m3 = new VBox(15);
         VBox m4 = new VBox(15);
-        Pane m5 = new Pane();
 
         public Menu(int y)
         {
@@ -332,8 +387,6 @@ public class window extends Application{
             m3.setTranslateY(200);
             m4.setTranslateX(80);
             m4.setTranslateY(200);
-            m5.setTranslateX(700);
-            m5.setTranslateY(383);
 
             //new game button
             menuButton btNewGame = new menuButton("New Game");
@@ -361,22 +414,9 @@ public class window extends Application{
                 });
                 ft.play();
             });
-            menuButton btRoll = new menuButton("Roll", 50, 20, Color.GREY);
-            btRoll.setOnMouseClicked(e->
-            {
-                if(roll != 0)
-                {
-                    System.out.println("stop!!");
-                }
-                else
-                {
-                    roll = (int)(Math.random()*10)+1;
-                }
-            });
             menuButton btStart = new menuButton("Start Game");
             btStart.setOnMouseClicked(e->{
                 this.getChildren().remove(m4);
-                this.getChildren().add(m5);
 
             });
             menuButton btTutorial = new menuButton("Tutorial!");
@@ -544,7 +584,6 @@ public class window extends Application{
 
                 m4.getChildren().add(btStart);
                 this.getChildren().add(m4);
-                m5.getChildren().add(btRoll);
 
             }
         }
@@ -589,6 +628,28 @@ public class window extends Application{
             d.setInput(new Glow());
             setOnMousePressed(e-> setEffect(d));
             setOnMouseReleased(e-> setEffect(null));
+
+        }
+        public menuButton(String n, int x, int y)
+        {
+            //make text object look fancy
+            name = new Text(n);
+            name.setFill(Color.BLACK);
+
+            //Use rectangles as buttons so you can do fancy fade :)
+            Rectangle rec = new Rectangle(x, y);
+            rec.setOpacity(0.6);
+            rec.setFill(Color.WHITE);
+
+            //location of buttons
+            this.setAlignment(Pos.CENTER);
+            this.setRotate(-.5);
+            getChildren().addAll(rec, name);
+
+            //highlight when entered
+
+            //click effects to simulate depression on click
+
 
         }
         public menuButton(String n, int x, int y, Color c)

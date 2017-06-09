@@ -4,6 +4,9 @@
 public class gameBoard {
     public int gbx, gby;
     payDay pd1;
+    Stop stp1;
+    LifeCard lfc1;
+    loseMoney lmoney;
 
     public gameBoard()
     {
@@ -19,10 +22,39 @@ public class gameBoard {
 
     public gameBoard(int xC, int yC, payDay pd)
     {
-        gbx = xC;
-        gby = yC;
-        pd1 = pd;
+       this.gbx = xC;
+        this.gby = yC;
+        this.pd1 = pd;
     }
+    public gameBoard(int xC, int yC, Stop s)
+    {
+        this.gbx = xC;
+        this.gby = yC;
+        this.stp1 = s;
+    }
+    public gameBoard(int xC, int yC, LifeCard lc)
+    {
+        this.gbx = xC;
+        this.gby = yC;
+        this.lfc1 = lc;
+    }
+
+    public int getGbx() {
+        return gbx;
+    }
+
+    public int getGby() {
+        return gby;
+    }
+
+    public gameBoard(int xC, int yC, int lose)
+    {
+        this.gbx = xC;
+        this.gby = yC;
+        this.lmoney = new loseMoney(lose);
+
+    }
+
 
     @Override
     public String toString() {

@@ -3,9 +3,8 @@ import java.util.ArrayList;
 /**
  * Created by Ben on 5/17/2017.
  */
-public class player {
-    private int money, lifeT, salary;
-    private ArrayList<Integer> loc = new ArrayList<>();
+public class player extends gameBoard{
+    private int money, lifeT, salary, loc;
     private String name;
     public player()
     {
@@ -27,17 +26,24 @@ public class player {
         lifeT = l;
         salary = s;
         name = n;
-        for(int i = 0; i < 130; i++)
-        {
-            loc.add(i, i+1);
-        }
+
     }
     public int getMoney() {
         return money;
     }
 
+    public void setLoc(int loc) {
+        this.loc = loc;
+    }
+
+    public int getLoc() {
+
+        return loc;
+    }
+
     public int getLifeT() {
         return lifeT;
+
     }
 
     public int getSalary() {
