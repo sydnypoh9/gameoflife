@@ -43,7 +43,7 @@ public class window extends Application{
     public  ImageView imgView, imgView1;
     public Pane root;
     public Circle test;
-    public int place;
+    public int place, roll;
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
@@ -71,6 +71,7 @@ public class window extends Application{
 
 
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
+        scene1 = new Scene(root);
 
 
         //use start until game has been started, then use resume
@@ -84,7 +85,8 @@ public class window extends Application{
 
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
             //int temp = 0;
-            if (turn) {
+            if (turn)
+            {
                if(place < plist.size())
                {
                    place++;
@@ -95,21 +97,24 @@ public class window extends Application{
                }
                 turn = false;
                 System.out.println(place);
-            } else {
-                if (plist.size() == 2) {
+            }
+            else
+            {
+                if (plist.size() == 2)
+                {
                 System.out.println( plist);
                 }
                 else if(plist.size() == 3)
                 {
-
+                    System.out.println( plist);
                 }
-               else  if(plist.size()== 4)
+                else  if(plist.size()== 4)
                 {
-
+                    System.out.println( plist);
                 }
                 else
                 {
-
+                    System.exit(0);
                 }
                 turn = true;
 
@@ -120,7 +125,6 @@ public class window extends Application{
         tline.setCycleCount(Timeline.INDEFINITE);
 
         // create scene
-        scene1 = new Scene(root);
 
 
 
@@ -169,6 +173,8 @@ public class window extends Application{
             VBox m2 = new VBox(15);
             VBox m3 = new VBox(15);
             VBox m4 = new VBox(15);
+            Pane m5 = new Pane();
+
 
 
             //setting menu1/2 to same y, different x for transition fade
@@ -180,6 +186,8 @@ public class window extends Application{
             m3.setTranslateY(200);
             m4.setTranslateX(80);
             m4.setTranslateY(200);
+            m5.setTranslateX(700);
+            m5.setTranslateY(383);
 
             //new game button
             menuButton btNewGame = new menuButton("New Game");
@@ -207,9 +215,15 @@ public class window extends Application{
                 });
                 ft.play();
             });
+            menuButton btRoll = new menuButton("Roll", 50, 20, Color.GREY);
+                btRoll.setOnMouseClicked(e->
+            {
+                roll = (int)(Math.random()*10)+1;
+            });
             menuButton btStart = new menuButton("Start Game");
             btStart.setOnMouseClicked(e->{
                 this.getChildren().remove(m4);
+                this.getChildren().add(m5);
 
             });
             menuButton btTwo = new menuButton("Two players");
@@ -261,8 +275,8 @@ public class window extends Application{
                 p4name.setOnKeyPressed(e1->{
                     if(e1.getCode() == KeyCode.ENTER)
                     {
-                        String name = p1name.getText();
-                        p1.setName(name);
+                        String name = p4name.getText();
+                        p4.setName(name);
                         p4name.setVisible(false);
                         run = true;
                         m3.getChildren().removeAll(p1name,p2name, p3name, p4name);
@@ -316,7 +330,6 @@ public class window extends Application{
             });
 
             btTwo.setOnMouseClicked(e->{
-                boolean[] startGameVis = {false};
                 m3.getChildren().removeAll(btFour, btTwo, btThree);
                 m3.setTranslateY(m3.getTranslateY()+50);
                 player p1 = new player();
@@ -372,8 +385,11 @@ public class window extends Application{
             }
             else if(x == 4)
             {
+
                 m4.getChildren().add(btStart);
                 this.getChildren().add(m4);
+                m5.getChildren().add(btRoll);
+
             }
 
 
@@ -415,6 +431,47 @@ public class window extends Application{
                     name.setFill(Color.WHITE);
                 });
                 //click effects to simulate depression on click
+            DropShadow d = new DropShadow(50, Color.WHITE);
+            d.setInput(new Glow());
+            setOnMousePressed(e-> setEffect(d));
+            setOnMouseReleased(e-> setEffect(null));
+
+        }
+        public menuButton(String n, int x, int y, Color c)
+        {
+            int xmove = x;
+            int ymove = y;
+            Color cchange = c;
+            //make text object look fancy
+            name = new Text(n);
+            name.setFill(Color.BLACK);
+
+            //Use rectangles as buttons so you can do fancy fade :)
+            Rectangle rec = new Rectangle(xmove, ymove);
+            rec.setOpacity(0.6);
+            rec.setFill(cchange);
+            rec.setEffect(new GaussianBlur(3.5));
+
+            //location of buttons
+            this.setAlignment(Pos.CENTER);
+            this.setRotate(-.5);
+            getChildren().addAll(rec, name);
+
+            //highlight when entered
+            this.setOnMouseEntered(e->{
+                rec.setTranslateX(10);
+                rec.setFill(Color.WHITE);
+                name.setTranslateX(10);
+                name.setFill(Color.BLACK);
+            });
+            this.setOnMouseExited(e->{
+                //resets on exit
+                rec.setTranslateX(0);
+                rec.setFill(cchange);
+                name.setTranslateX(0);
+                name.setFill(Color.WHITE);
+            });
+            //click effects to simulate depression on click
             DropShadow d = new DropShadow(50, Color.WHITE);
             d.setInput(new Glow());
             setOnMousePressed(e-> setEffect(d));
