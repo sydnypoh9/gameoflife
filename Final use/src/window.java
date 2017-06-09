@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,12 +37,13 @@ import java.util.ArrayList;
 public class window extends Application{
     public Menu startMenu, resumeMenu, newGameMenu, game;
     public ArrayList<player> plist = new ArrayList<player>();
-    public int test;
     public boolean turn = true, run = false;
     public KeyFrame frame1;
     public Scene scene1;
-    ImageView imgView, imgView1;
-    Pane root;
+    public  ImageView imgView, imgView1;
+    public Pane root;
+    public Circle test;
+    public int place;
     public void start(Stage primaryStage) throws Exception
     {
         //background picture
@@ -67,6 +69,7 @@ public class window extends Application{
         newGameMenu = new Menu(3);
         game = new Menu(4);
 
+
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
 
 
@@ -82,11 +85,31 @@ public class window extends Application{
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
             //int temp = 0;
             if (turn) {
+               if(place < plist.size())
+               {
+                   place++;
+               }
+               else
+               {
+                   place = 1;
+               }
                 turn = false;
-                System.out.println("turn end");
+                System.out.println(place);
             } else {
-                if (plist.size() == 0) {
-                    System.exit(0);
+                if (plist.size() == 2) {
+                System.out.println( plist);
+                }
+                else if(plist.size() == 3)
+                {
+
+                }
+               else  if(plist.size()== 4)
+                {
+
+                }
+                else
+                {
+
                 }
                 turn = true;
 
@@ -145,7 +168,7 @@ public class window extends Application{
             VBox m1 = new VBox(15);
             VBox m2 = new VBox(15);
             VBox m3 = new VBox(15);
-            Pane m4 = new Pane();
+            VBox m4 = new VBox(15);
 
 
             //setting menu1/2 to same y, different x for transition fade
@@ -153,8 +176,10 @@ public class window extends Application{
             m1.setTranslateY(200);
             m2.setTranslateX(80);
             m2.setTranslateY(200);
-            m3.setTranslateX(500);
-            m3.setTranslateY(400);
+            m3.setTranslateX(80);
+            m3.setTranslateY(200);
+            m4.setTranslateX(80);
+            m4.setTranslateY(200);
 
             //new game button
             menuButton btNewGame = new menuButton("New Game");
@@ -184,8 +209,7 @@ public class window extends Application{
             });
             menuButton btStart = new menuButton("Start Game");
             btStart.setOnMouseClicked(e->{
-                this.getChildren().remove(m3);
-                this.getChildren().add(m4);
+                this.getChildren().remove(m4);
 
             });
             menuButton btTwo = new menuButton("Two players");
@@ -242,6 +266,7 @@ public class window extends Application{
                         p4name.setVisible(false);
                         run = true;
                         m3.getChildren().removeAll(p1name,p2name, p3name, p4name);
+                        game.setVisible(true);
 
                     }
                 });
@@ -274,6 +299,7 @@ public class window extends Application{
                     {
                         String name = p2name.getText();
                         p2.setName(name);
+                        p2name.setVisible(false);
                     }
                 });
                 p3name.setOnKeyPressed(e1->{
@@ -283,6 +309,7 @@ public class window extends Application{
                         p3.setName(name);
                         run = true;
                         m3.getChildren().removeAll(p1name,p2name, p3name);
+                        game.setVisible(true);
                     }
                 });
 
@@ -315,6 +342,7 @@ public class window extends Application{
                         p2.setName(name);
                          run = true;
                          m3.getChildren().removeAll(p1name,p2name);
+                        game.setVisible(true);
                     }
                 });
             });
@@ -345,6 +373,7 @@ public class window extends Application{
             else if(x == 4)
             {
                 m4.getChildren().add(btStart);
+                this.getChildren().add(m4);
             }
 
 
