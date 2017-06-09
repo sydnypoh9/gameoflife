@@ -62,26 +62,18 @@
       <file leaf-file-name="window.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/window.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="161" column="38" lean-forward="true" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+            <state relative-caret-position="357">
+              <caret line="83" column="8" lean-forward="false" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="8" />
               <folding>
                 <element signature="e#1202#1210#0" expanded="true" />
-                <element signature="e#11994#12358#0" expanded="false" />
-                <element signature="e#12606#12925#0" expanded="false" />
-                <element signature="e#13754#15941#0" expanded="false" />
-                <element signature="e#15982#17650#0" expanded="false" />
-                <element signature="e#17689#18892#0" expanded="false" />
+                <element signature="method#setScoreBoard#0;class#window#0" expanded="false" />
+                <element signature="class#Menu#0;class#window#0" expanded="false" />
+                <element signature="e#13771#14090#0" expanded="false" />
+                <element signature="e#15037#17224#0" expanded="false" />
+                <element signature="e#17265#18933#0" expanded="false" />
+                <element signature="e#18972#20175#0" expanded="false" />
+                <element signature="class#menuButton#0;class#window#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Thread.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Thread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="744" column="0" lean-forward="false" selection-start-line="744" selection-start-column="0" selection-end-line="744" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -89,13 +81,13 @@
       <file leaf-file-name="player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state relative-caret-position="221">
+              <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
               <folding>
-                <element signature="e#515#516#0" expanded="true" />
-                <element signature="e#543#544#0" expanded="true" />
-                <element signature="e#572#573#0" expanded="true" />
-                <element signature="e#600#601#0" expanded="true" />
+                <element signature="e#686#687#0" expanded="true" />
+                <element signature="e#714#715#0" expanded="true" />
+                <element signature="e#743#744#0" expanded="true" />
+                <element signature="e#771#772#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,18 +96,8 @@
       <file leaf-file-name="gameBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Menubutton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Menubutton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="374">
+              <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -131,21 +113,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventHandler.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/javafx-src.zip!/javafx/event/EventHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="payDay.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/payDay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
               <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gameSquare.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gameSquare.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -161,6 +143,8 @@
       <find>imgView</find>
       <find>game</find>
       <find>1080</find>
+      <find>scene</find>
+      <find>newGame</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -725,12 +709,12 @@
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1496858877236" duration="8232000" />
       <workItem from="1496960965856" duration="9652000" />
-      <workItem from="1496971480422" duration="7262000" />
+      <workItem from="1496971480422" duration="12323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26448000" />
+    <option name="totallyTimeSpent" value="31509000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1426" extended-state="6" />
@@ -783,11 +767,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/window.java</url>
-          <line>604</line>
+          <line>636</line>
           <properties />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/window.java</url>
+          <line>210</line>
+          <properties />
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -802,11 +792,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1202#1210#0" expanded="true" />
-            <element signature="e#11994#12358#0" expanded="false" />
-            <element signature="e#12606#12925#0" expanded="false" />
-            <element signature="e#13754#15941#0" expanded="false" />
-            <element signature="e#15982#17650#0" expanded="false" />
-            <element signature="e#17689#18892#0" expanded="false" />
+            <element signature="method#setScoreBoard#0;class#window#0" expanded="false" />
+            <element signature="class#Menu#0;class#window#0" expanded="false" />
+            <element signature="e#13771#14090#0" expanded="false" />
+            <element signature="e#15037#17224#0" expanded="false" />
+            <element signature="e#17265#18933#0" expanded="false" />
+            <element signature="e#18972#20175#0" expanded="false" />
+            <element signature="class#menuButton#0;class#window#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -833,11 +825,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1202#1210#0" expanded="true" />
-            <element signature="e#11994#12358#0" expanded="false" />
-            <element signature="e#12606#12925#0" expanded="false" />
-            <element signature="e#13754#15941#0" expanded="false" />
-            <element signature="e#15982#17650#0" expanded="false" />
-            <element signature="e#17689#18892#0" expanded="false" />
+            <element signature="method#setScoreBoard#0;class#window#0" expanded="false" />
+            <element signature="class#Menu#0;class#window#0" expanded="false" />
+            <element signature="e#13771#14090#0" expanded="false" />
+            <element signature="e#15037#17224#0" expanded="false" />
+            <element signature="e#17265#18933#0" expanded="false" />
+            <element signature="e#18972#20175#0" expanded="false" />
+            <element signature="class#menuButton#0;class#window#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -864,11 +858,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameBoard.java">
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        <state relative-caret-position="317">
+          <caret line="744" column="0" lean-forward="false" selection-start-line="744" selection-start-column="0" selection-end-line="744" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+          <folding>
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#714#715#0" expanded="true" />
+            <element signature="e#743#744#0" expanded="true" />
+            <element signature="e#771#772#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -896,38 +903,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Thread.java">
+    <entry file="file://$PROJECT_DIR$/src/gameSquare.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="744" column="0" lean-forward="false" selection-start-line="744" selection-start-column="0" selection-end-line="744" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/player.java">
+    <entry file="file://$PROJECT_DIR$/src/gameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="57" column="9" lean-forward="true" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding>
-            <element signature="e#515#516#0" expanded="true" />
-            <element signature="e#543#544#0" expanded="true" />
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#600#601#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/window.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="161" column="38" lean-forward="true" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+        <state relative-caret-position="357">
+          <caret line="83" column="8" lean-forward="false" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="8" />
           <folding>
             <element signature="e#1202#1210#0" expanded="true" />
-            <element signature="e#11994#12358#0" expanded="false" />
-            <element signature="e#12606#12925#0" expanded="false" />
-            <element signature="e#13754#15941#0" expanded="false" />
-            <element signature="e#15982#17650#0" expanded="false" />
-            <element signature="e#17689#18892#0" expanded="false" />
+            <element signature="method#setScoreBoard#0;class#window#0" expanded="false" />
+            <element signature="class#Menu#0;class#window#0" expanded="false" />
+            <element signature="e#13771#14090#0" expanded="false" />
+            <element signature="e#15037#17224#0" expanded="false" />
+            <element signature="e#17265#18933#0" expanded="false" />
+            <element signature="e#18972#20175#0" expanded="false" />
+            <element signature="class#menuButton#0;class#window#0" expanded="false" />
           </folding>
         </state>
       </provider>

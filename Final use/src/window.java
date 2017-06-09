@@ -38,15 +38,17 @@ public class window extends Application{
     public Menu startMenu, resumeMenu, newGameMenu, game;
     public ArrayList<player> plist = new ArrayList<player>();
     player p1, p2, p3, p4;
-    public boolean turn = true, run = false, terriblewayofdoingthis = true;
+    public boolean turn = true, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true;
     public KeyFrame frame1;
-    public Scene scene1;
+    public Scene scene1, tutorial;
     public ImageView imgView, imgView1;
-    public Pane root;
+    public Pane root, root2;
     public VBox p1SB, p2SB, p3SB, p4SB, scoreBM = new VBox(100);
-    public Circle test;
-    public Rectangle r, p1T, p2T, p3T, p4T;
+    public Circle test = new Circle(15);
+    public Rectangle r;
     public int place, roll;
+    final public int q1x = 300,q2x = 720, q1y = 100;
+    public gameBoard gbCollege, gbJob;
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -60,9 +62,11 @@ public class window extends Application{
         is1.close();
         imgView1 = new ImageView(img1);
 
-        //rectangle city
+        //rectangle and circle city
         r= new Rectangle(120, 884);
         r.setFill(Color.WHITE);
+        test.setTranslateX(901);
+        test.setTranslateY(397);
 
 
         //main pane
@@ -77,11 +81,12 @@ public class window extends Application{
         resumeMenu = new Menu(2);
         newGameMenu = new Menu(3);
         game = new Menu(4);
-
-
+        
         root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
         scene1 = new Scene(root);
-
+        //do at some point
+        tutorial = new Scene(root2= new Pane());
+        root2.setPrefSize(680, 200);
 
         //use start until game has been started, then use resume
         resumeMenu.setVisible(false);
@@ -92,11 +97,14 @@ public class window extends Application{
 
 
 
+
+
+
         frame1 = new KeyFrame(Duration.seconds(1), e1 -> {
             if(terriblewayofdoingthis)
             {
                 setScoreBoard();
-                root.getChildren().addAll(r, scoreBM);
+                root.getChildren().addAll(r, scoreBM, test);
                 terriblewayofdoingthis = false;
             }
             if (turn)
@@ -118,6 +126,23 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
+                        if(terriblewayofdoingthis2)
+                        {
+                            menuButton College = new menuButton("Go to college?",125, 125, Color.WHITE);
+                            College.setTranslateX(q1x);
+                            College.setTranslateY(q1y);
+                            menuButton work = new menuButton("Go to work?",125, 125, Color.WHITE);
+                            work.setTranslateX(q2x);
+                            work.setTranslateY(q1y);
+                            root.getChildren().addAll(College, work);
+                            College.setOnMouseClicked(e->{
+
+                            });
+                            work.setOnMouseClicked(e->{
+
+                            });
+                        }
+
                         p1.setMoney(10000);
                         setScoreBoard();
                     }
@@ -177,8 +202,10 @@ public class window extends Application{
 
         //primaryStage set, prob will be moved
         primaryStage.setScene(scene1);
+    //    primaryStage.setScene(tutorial);
         primaryStage.show();
     }
+
     public void setScoreBoard()
     {
         //in my defense i know how bad this is but im tired :)
@@ -346,12 +373,17 @@ public class window extends Application{
                     roll = (int)(Math.random()*10)+1;
                 }
             });
-            menuButton btStart; btStart = new menuButton("Start Game");
+            menuButton btStart = new menuButton("Start Game");
             btStart.setOnMouseClicked(e->{
                 this.getChildren().remove(m4);
                 this.getChildren().add(m5);
 
             });
+            menuButton btTutorial = new menuButton("Tutorial!");
+            btTutorial.setOnKeyPressed(e->{
+
+            });
+
             menuButton btTwo = new menuButton("Two players");
             menuButton btFour = new menuButton("Four Players");
             menuButton btThree = new menuButton("Three players");
@@ -492,7 +524,7 @@ public class window extends Application{
             //uses imputed int to determine what buttons to add
             if(x == 1)
             {
-                m1.getChildren().addAll(btNewGame, btExit);
+                m1.getChildren().addAll(btNewGame,btTutorial, btExit);
                 this.getChildren().addAll(bg, m1);
             }
             else if(x == 2)
@@ -580,21 +612,21 @@ public class window extends Application{
             getChildren().addAll(rec, name);
 
             //highlight when entered
-            this.setOnMouseEntered(e->{
-                rec.setTranslateX(10);
-                rec.setFill(Color.WHITE);
-                name.setTranslateX(10);
-                name.setFill(Color.BLACK);
-            });
-            this.setOnMouseExited(e->{
-                //resets on exit
-                rec.setTranslateX(0);
-                rec.setFill(cchange);
-                name.setTranslateX(0);
-                name.setFill(Color.WHITE);
-            });
+//            this.setOnMouseEntered(e->{
+//                rec.setTranslateX(10);
+//                rec.setFill(Color.YELLOW);
+//                name.setTranslateX(10);
+//                name.setFill(Color.WHITE);
+//            });
+//            this.setOnMouseExited(e->{
+//                //resets on exit
+//                rec.setTranslateX(0);
+//                rec.setFill(cchange);
+//                name.setTranslateX(0);
+//                name.setFill(Color.BLACK);
+//            });
             //click effects to simulate depression on click
-            DropShadow d = new DropShadow(50, Color.WHITE);
+            DropShadow d = new DropShadow(50, Color.BLACK);
             d.setInput(new Glow());
             setOnMousePressed(e-> setEffect(d));
             setOnMouseReleased(e-> setEffect(null));
