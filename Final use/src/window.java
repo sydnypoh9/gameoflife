@@ -11,6 +11,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -52,6 +53,8 @@ public class window extends Application{
     ArrayList<gameBoard> collegeA;
     ArrayList<gameBoard> workA;
     ArrayList<gameBoard> wholeBoard;
+    HBox hboxJobs;
+    menuButton job1, job2, job3, job4, job5, job6, yourTurnp1, yourTurnp2;
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -69,7 +72,7 @@ public class window extends Application{
         //rectangle and circle city
         r= new Rectangle(120, 884);
         r.setFill(Color.WHITE);
-        r.setOpacity(.3);
+        r.setOpacity(.6);
         p1circle.setTranslateX(901);
         p1circle.setTranslateY(397);
         p1circle.setFill(Color.RED);
@@ -79,26 +82,45 @@ public class window extends Application{
         menuButton spin = new menuButton("Tip: Click the spin button \nto spin the wheel!!", 200, 200);
         spin.setTranslateY(tip);
         spin.setTranslateX(tip);
-        menuButton btRoll = new menuButton("Roll", 50, 20, Color.GREY);
+        menuButton btRoll = new menuButton("Roll/move", 50, 20, Color.GREY);
         btRoll.setOnMouseClicked(e->
         {
             if(rollint == 0)
             {
                 rollint = (int)(Math.random()*10)+1;
-                menuButton youGot = new menuButton("You rolled a: " + rollint, 200, 200);
-                youGot.setTranslateX(tip); youGot.setTranslateY(tip);
-                root.getChildren().add(youGot);
-                youGot.setOnMouseEntered(e1->{
-                    root.getChildren().remove(youGot);
-                });
+
+                if(place == 1)
+                {
+                    menuButton youGot = new menuButton("Player1 rolled a: " + rollint + "\n\n\n-Hint", 200, 200);
+                    youGot.setTranslateX(tip); youGot.setTranslateY(tip);
+                    root.getChildren().add(youGot);
+                    youGot.setOnMouseEntered(e1->{
+                        root.getChildren().remove(youGot);
+                    });
+                }
+                if(place == 2)
+                {
+                    menuButton youGot = new menuButton("Player2 rolled a: " + rollint + "\n\n\n-Hint", 200, 200);
+                    youGot.setTranslateX(tip); youGot.setTranslateY(tip);
+                    root.getChildren().add(youGot);
+                    youGot.setOnMouseEntered(e1->{
+                        root.getChildren().remove(youGot);
+                    });
+                }
             }
             else
             {
                 System.out.println("Stop pressing the button");
             }
         });
-        btRoll.setTranslateX(700);
-        btRoll.setTranslateY(383);
+        btRoll.setTranslateX(690);
+        btRoll.setTranslateY(400);
+        yourTurnp1 = new menuButton("Player: 1\nIt's your turn", 160, 30);
+        yourTurnp2 = new menuButton("Player: 2\nIt's your turn", 160, 30);
+        yourTurnp1.setTranslateY(3);
+        yourTurnp2.setTranslateY(3);
+        yourTurnp1.setTranslateX(900);
+        yourTurnp2.setTranslateX(900);
 
         //main pane
         final int x = 1080, y = 884;
@@ -113,7 +135,7 @@ public class window extends Application{
         newGameMenu = new Menu(3);
         game = new Menu(4);
             //everything is everywhere i give up commenting
-        root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game);
+        root.getChildren().addAll(imgView, imgView1, startMenu, resumeMenu, newGameMenu, game, yourTurnp1, yourTurnp2);
         scene1 = new Scene(root);
         //do at some point
         tutorial = new Scene(root2= new Pane());
@@ -125,6 +147,8 @@ public class window extends Application{
         game.setVisible(false);
         root.setVisible(true);
         imgView1.setVisible(false);
+        yourTurnp1.setVisible(false);
+        yourTurnp2.setVisible(false);
 
 
         setArrays();
@@ -155,8 +179,21 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
+                        yourTurnp1.setVisible(false);
+                        yourTurnp1.setVisible(true);
+
+
+                    }
+                    if(place == 2)
+                    {
+                        yourTurnp1.setVisible(false);
+                        yourTurnp2.setVisible(true);
+                    }
+                    if(place == 1)
+                    {
                         if( terriblewayofdoingthis2 == true)
                         {
+                            yourTurnp1.setVisible(true);
                             menuButton College = new menuButton("Player 1 go to college?",125, 125, Color.WHITE);
                             College.setOpacity(10);
                             College.setTranslateX(q1x);
@@ -169,17 +206,130 @@ public class window extends Application{
                             College.setOnMouseClicked(e->{
                                 root.getChildren().removeAll(College, work);
                                 collegeBool = true;
-
+                                job1 = new menuButton("Dentist", 180, 40, Color.WHITE);
+                                job2 = new menuButton("Programmer", 180, 40, Color.WHITE);
+                                job3 = new menuButton("Banker", 180, 40, Color.WHITE);
+                                job4 = new menuButton("Engineer", 180, 40, Color.WHITE);
+                                job5 = new menuButton("Pharmacist", 180, 40, Color.WHITE);
+                                job6 = new menuButton("ZooKeeper", 180, 40, Color.WHITE);
+                                Text pickajobtext = new Text("Pick a job!!!");
+                                int rng = (int)(Math.random()*3);
+                                if(rng ==1)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job6, job1, job3, job2);
+                                }
+                                else if(rng ==2)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job5, job4, job1, job6);
+                                }
+                               else if(rng ==3)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job3, job1, job4, job5);
+                                }
+                                else
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job1, job2, job3, job4);
+                                }
+                                root.getChildren().add(hboxJobs);
+                                job1.setOnMouseClicked(e2->{
+                                    setJobs(1);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job2.setOnMouseClicked(e2->{
+                                    setJobs(2);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job3.setOnMouseClicked(e2->{
+                                    setJobs(3);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job4.setOnMouseClicked(e2->{
+                                    setJobs(4);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job5.setOnMouseClicked(e2->{
+                                    setJobs(5);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job6.setOnMouseClicked(e2->
+                                {
+                                    setJobs(6);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
                             });
                             work.setOnMouseClicked(e->{
                                 root.getChildren().removeAll(College, work);
                                 workBool = true;
+                                p1.setMoney(10000);
+                                setScoreBoard();
+                                job1 = new menuButton("Construction", 180, 40, Color.WHITE);
+                                job2 = new menuButton("Daycare", 180, 40, Color.WHITE);
+                                job3 = new menuButton("Clerk", 180, 40, Color.WHITE);
+                                job4 = new menuButton("Factory Worker", 180, 40, Color.WHITE);
+                                job5 = new menuButton("Re-stocker", 180, 40, Color.WHITE);
+                                job6 = new menuButton("ZooKeeper", 180, 40, Color.WHITE);
+                                Text pickajobtext = new Text("Pick a job!!");
+                                int rng = (int)(Math.random()*3);
+                                if(rng ==1)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job6, job1, job3, job2);
+                                }
+                                else if(rng ==2)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job5, job4, job1, job6);
+                                }
+                                else if(rng ==3)
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job3, job1, job4, job5);
+                                }
+                                else
+                                {
+                                    hboxJobs = new HBox(pickajobtext, job1, job2, job3, job4);
+                                }
+                                root.getChildren().add(hboxJobs);
+                                job1.setOnMouseClicked(e2->{
+                                    setJobs(1);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job2.setOnMouseClicked(e2->{
+                                    setJobs(2);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job3.setOnMouseClicked(e2->{
+                                    setJobs(3);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job4.setOnMouseClicked(e2->{
+                                    setJobs(4);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job5.setOnMouseClicked(e2->{
+                                    setJobs(5);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
+                                job6.setOnMouseClicked(e2->
+                                {
+                                    setJobs(6);
+                                    root.getChildren().remove(hboxJobs);
+                                    setScoreBoard();
+                                });
                             });
                             terriblewayofdoingthis2 = false;
                         }
                         if(rollint == 0)
                         {
-                            System.out.println("roll int in if " + rollint);
+                            //System.out.println("roll int in if " + rollint);
 
                         }
                         else
@@ -192,7 +342,8 @@ public class window extends Application{
                                 p1.setLoc(rollint-1);
                                 turn = true;
                                 rollint = 0;
-                                System.out.println("errortestcollegep1");
+
+                                //System.out.println("errortestcollegep1");
                             }
                             if(workBool == true) {
                                 if(rollint > 4)
@@ -205,7 +356,7 @@ public class window extends Application{
                                     p1.setMoney(p1.getMoney()+p1.getSalary());
                                     setScoreBoard();
                                 }
-                                System.out.println("errorworkp1");
+                             //   System.out.println("errorworkp1");
                                 p1circle.setTranslateX(workA.get(rollint-1).getGbx());
                                 p1circle.setTranslateY(workA.get(rollint-1).getGby());
                                 p1.setLoc(rollint-1);
@@ -228,16 +379,130 @@ public class window extends Application{
                         btCollege2.setOnMouseClicked(e->{
                             root.getChildren().removeAll(btCollege2, btwork2);
                             collegeBoo2 = true;
+                            job1 = new menuButton("Dentist", 180, 40, Color.WHITE);
+                            job2 = new menuButton("Programmer", 180, 40, Color.WHITE);
+                            job3 = new menuButton("Banker", 180, 40, Color.WHITE);
+                            job4 = new menuButton("Engineer", 180, 40, Color.WHITE);
+                            job5 = new menuButton("Pharmacist", 180, 40, Color.WHITE);
+                            job6 = new menuButton("ZooKeeper", 180, 40, Color.WHITE);
+                            Text pickajobtext = new Text("Pick a job!");
+                            int rng = (int)(Math.random()*3);
+                            if(rng ==1)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job6, job1, job3, job2);
+                            }
+                            else if(rng ==2)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job5, job4, job1, job6);
+                            }
+                            else if(rng ==3)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job3, job1, job4, job5);
+                            }
+                            else
+                            {
+                                hboxJobs = new HBox(pickajobtext, job1, job2, job3, job4);
+                            }
+                            root.getChildren().add(hboxJobs);
+                            job1.setOnMouseClicked(e2->{
+                                setJobs(1);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job2.setOnMouseClicked(e2->{
+                                setJobs(2);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job3.setOnMouseClicked(e2->{
+                                setJobs(3);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job4.setOnMouseClicked(e2->{
+                                setJobs(4);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job5.setOnMouseClicked(e2->{
+                                setJobs(5);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job6.setOnMouseClicked(e2->
+                            {
+                                setJobs(6);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
                         });
                         btwork2.setOnMouseClicked(e->{
                             root.getChildren().removeAll(btCollege2, btwork2);
                             workBoo2 = true;
+                            p2.setMoney(10000);
+                            setScoreBoard();
+                            job1 = new menuButton("Construction", 180, 40, Color.WHITE);
+                            job2 = new menuButton("Daycare", 180, 40, Color.WHITE);
+                            job3 = new menuButton("Clerk", 180, 40, Color.WHITE);
+                            job4 = new menuButton("Factory Worker", 180, 40, Color.WHITE);
+                            job5 = new menuButton("Re-stocker", 180, 40, Color.WHITE);
+                            job6 = new menuButton("ZooKeeper", 180, 40, Color.WHITE);
+                            Text pickajobtext = new Text("Pick a job!");
+                            int rng = (int)(Math.random()*3);
+                            if(rng ==1)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job6, job1, job3, job2);
+                            }
+                            else if(rng ==2)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job5, job4, job1, job6);
+                            }
+                            else if(rng ==3)
+                            {
+                                hboxJobs = new HBox(pickajobtext, job3, job1, job4, job5);
+                            }
+                            else
+                            {
+                                hboxJobs = new HBox(pickajobtext, job1, job2, job3, job4);
+                            }
+                            root.getChildren().add(hboxJobs);
+                            job1.setOnMouseClicked(e2->{
+                                setJobs(1);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job2.setOnMouseClicked(e2->{
+                                setJobs(2);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job3.setOnMouseClicked(e2->{
+                                setJobs(3);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job4.setOnMouseClicked(e2->{
+                                setJobs(4);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job5.setOnMouseClicked(e2->{
+                                setJobs(5);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
+                            job6.setOnMouseClicked(e2->
+                            {
+                                setJobs(6);
+                                root.getChildren().remove(hboxJobs);
+                                setScoreBoard();
+                            });
                         });
                         terriblewayofdoingthis3 = false;
                          }
                        if(rollint == 0)
                         {
-                            System.out.println("roll int in if " + rollint);
+                            //System.out.println("roll int in if " + rollint);
 
                         }
                         else
@@ -258,11 +523,10 @@ public class window extends Application{
                                 }
                                 if(rollint >= 1)
                                 {
-                                    System.out.print("Works payday");
-                                    p1.setMoney(p1.getMoney()+p1.getSalary());
+                                    p2.setMoney(p2.getMoney()+p2.getSalary());
                                     setScoreBoard();
                                 }
-                                System.out.println("errortestworkp2");
+                              //  System.out.println("errortestworkp2");
                                 p2circle.setTranslateX(workA.get(rollint-1).getGbx());
                                 p2circle.setTranslateY(workA.get(rollint-1).getGby()-p2offset);
                                 p2.setLoc(rollint-1);
@@ -334,7 +598,7 @@ public class window extends Application{
         int temp = plist.size();
         if(temp == 2)
         {
-            if(terriblewayofdoingthis == false)
+            if(terriblewayofdoingthis == false || terriblewayofdoingthis2 == false || terriblewayofdoingthis3 == false)
             {
                 scoreBM.getChildren().removeAll(p1SB, p2SB);
             }
@@ -356,7 +620,7 @@ public class window extends Application{
         }
         if(temp == 3)
         {
-            if(terriblewayofdoingthis == false)
+            if(terriblewayofdoingthis == false || terriblewayofdoingthis2 == false|| terriblewayofdoingthis == false)
             {
                 scoreBM.getChildren().removeAll(p1SB, p2SB, p3SB);
             }
@@ -385,7 +649,7 @@ public class window extends Application{
         }
         if(temp == 4)
         {
-            if(terriblewayofdoingthis == false)
+            if(terriblewayofdoingthis == false || terriblewayofdoingthis2 == false|| terriblewayofdoingthis == false)
             {
                 scoreBM.getChildren().removeAll(p1SB, p2SB, p3SB, p4SB);
             }
@@ -421,13 +685,118 @@ public class window extends Application{
             //see above comment
         }
     }
-    public void setJob()
+    public void setJobs(int x)
     {
-        for(int i = 0; i < plist.size(); i++)
-        {
-            if(workBool == true)
-            {
+        int set = x;
+        Boolean localcb1 = collegeBool, lobalcb2 = collegeBoo2, localwb = workBool, localwb2 = workBoo2;
 
+            if(localcb1 == true)
+            {
+                if(set == 1)
+                {
+
+                    p1.setSalary(80000);
+                }
+                else if(set ==2)
+                {
+                    p1.setSalary(80000);
+                }
+                else if(set ==3)
+                {
+                    p1.setSalary(100000);
+                }
+                else if(set ==4)
+                {
+                    p1.setSalary(70000);
+                }
+                else if(set ==5)
+                {
+                    p1.setSalary(85000);
+                }
+                else
+                {
+                    p1.setSalary(65000);
+                }
+            }
+            if(localwb == true)
+            {
+                if(set == 1)
+                {
+                    p1.setSalary(35000);
+                }
+                else if(set ==2)
+                {
+                    p1.setSalary(40000);
+                }
+                else if(set ==3)
+                {
+                    p1.setSalary(45000);
+                }
+                else if(set ==4)
+                {
+                    p1.setSalary(25000);
+                }
+                else if(set ==5)
+                {
+                    p1.setSalary(30000);
+                }
+                else
+                {
+                    p1.setSalary(65000);
+                }
+            }
+        if(lobalcb2 == true)
+        {
+            if(set == 1)
+            {
+                p2.setSalary(80000);
+            }
+            else if(set ==2)
+            {
+                p2.setSalary(80000);
+            }
+            else if(set ==3)
+            {
+                p2.setSalary(100000);
+            }
+            else if(set ==4)
+            {
+                p2.setSalary(70000);
+            }
+            else if(set ==5)
+            {
+                p2.setSalary(85000);
+            }
+            else
+            {
+                p2.setSalary(65000);
+            }
+        }
+        if(localwb2 == true)
+        {
+            if(set == 1)
+            {
+                p2.setSalary(35000);
+            }
+            else if(set ==2)
+            {
+                p2.setSalary(40000);
+            }
+            else if(set ==3)
+            {
+                p2.setSalary(45000);
+            }
+            else if(set ==4)
+            {
+                p2.setSalary(25000);
+            }
+            else if(set ==5)
+            {
+                p2.setSalary(30000);
+            }
+            else
+            {
+                p2.setSalary(65000);
             }
         }
     }
@@ -852,7 +1221,7 @@ public class window extends Application{
 
             //Use rectangles as buttons so you can do fancy fade :)
             Rectangle rec = new Rectangle(x, y);
-            rec.setOpacity(0.6);
+            rec.setOpacity(0.8);
             rec.setFill(Color.WHITE);
 
             //location of buttons
@@ -877,7 +1246,7 @@ public class window extends Application{
 
             //Use rectangles as buttons so you can do fancy fade :)
             Rectangle rec = new Rectangle(xmove, ymove);
-            rec.setOpacity(0.6);
+            rec.setOpacity(0.8);
             rec.setFill(cchange);
             rec.setEffect(new GaussianBlur(3.5));
 
