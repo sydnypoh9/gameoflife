@@ -160,9 +160,10 @@ public class window extends Application{
                 root.getChildren().addAll(r, scoreBM, p1circle, p2circle);
                 terriblewayofdoingthis = false;
             }
+            System.out.println(place);
             if (turn == true)
             {
-               if(place <= plist.size())
+               if(place < plist.size())
                {
                    place++;
                    turn = false;
@@ -363,6 +364,7 @@ public class window extends Application{
                                 turn = true;
                                 rollint = 0;
                             }
+
                         }
                     }
                     if(place == 2)
