@@ -40,7 +40,7 @@ public class window extends Application{
     private Menu startMenu, resumeMenu, newGameMenu, game;
     private ArrayList<player> plist = new ArrayList<player>();
     private player p1, p2, p3, p4;
-    private boolean turn = false, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true, collegeBool = false, workBool = false, collegeBoo2 = false, workBoo2 = false, terriblewayofdoingthis3 = true;
+    private boolean turn = false, run = false, terriblewayofdoingthis = true, terriblewayofdoingthis2 = true, collegeBool = false, workBool = false, collegeBoo2 = false, workBoo2 = false, terriblewayofdoingthis3 = true, mainpathp1 = false, painpathp2 = false;
     private KeyFrame frame1;
     private Scene scene1, tutorial;
     private ImageView imgView, imgView1;
@@ -82,7 +82,7 @@ public class window extends Application{
         menuButton spin = new menuButton("Tip: Click the spin button \nto spin the wheel!!", 200, 200);
         spin.setTranslateY(tip);
         spin.setTranslateX(tip);
-        menuButton btRoll = new menuButton("Roll/move", 50, 20, Color.GREY);
+        menuButton btRoll = new menuButton("Roll/move", 60, 20, Color.GREY);
         btRoll.setOnMouseClicked(e->
         {
             if(rollint == 0)
@@ -113,7 +113,7 @@ public class window extends Application{
                 System.out.println("Stop pressing the button");
             }
         });
-        btRoll.setTranslateX(690);
+        btRoll.setTranslateX(675);
         btRoll.setTranslateY(400);
         yourTurnp1 = new menuButton("Player: 1\nIt's your turn", 160, 30);
         yourTurnp2 = new menuButton("Player: 2\nIt's your turn", 160, 30);
@@ -180,7 +180,7 @@ public class window extends Application{
                 {
                     if(place == 1)
                     {
-                        yourTurnp1.setVisible(false);
+                        yourTurnp2.setVisible(false);
                         yourTurnp1.setVisible(true);
 
 
@@ -337,32 +337,58 @@ public class window extends Application{
                         {
                             if(collegeBool == true)
                             {
-                                //dont
-                                p1circle.setTranslateX(collegeA.get(rollint-1).getGbx());
-                                p1circle.setTranslateY(collegeA.get(rollint-1).getGby());
-                                p1.setLoc(rollint-1);
-                                turn = true;
-                                rollint = 0;
+                                p1.setLoc(p1.getLoc()+rollint);
+                                if(p1.getLoc() <= 11)
+                                {
+                                    p1circle.setTranslateX(collegeA.get(rollint-1).getGbx());
+                                    p1circle.setTranslateY(collegeA.get(rollint-1).getGby());
+                                    turn = true;
+                                    rollint = 0;
+                                    collegeBool = false;
+                                    mainpathp1 = true;
+                                }
+                                else{
+                                    p1circle.setTranslateX(collegeA.get(12).getGbx());
+                                    p1circle.setTranslateY(collegeA.get(12).getGby());
+                                    turn = true;
+                                    rollint = 0;
+                                }
 
                                 //System.out.println("errortestcollegep1");
                             }
                             if(workBool == true) {
-                                if(rollint > 4)
+                                p1.setLoc(p1.getLoc()+rollint);
+                                if(p1.getLoc() > 4)
                                 {
                                     rollint = 4;
+                                    p1circle.setTranslateX(workA.get(4).getGbx());
+                                    p1circle.setTranslateY(workA.get(4).getGby());
+                                    turn = true;
+                                    rollint = 0;
+                                    mainpathp1 = true;
+                                    workBool = false;
                                 }
-                                if(rollint >= 1)
+                                else
                                 {
-                                    System.out.print("Works");
-                                    p1.setMoney(p1.getMoney()+p1.getSalary());
-                                    setScoreBoard();
+                                    p1circle.setTranslateX(workA.get(rollint-1).getGbx());
+                                    p1circle.setTranslateY(workA.get(rollint-1).getGby());
+                                    turn = true;
+                                    rollint = 0;
                                 }
-                             //   System.out.println("errorworkp1");
-                                p1circle.setTranslateX(workA.get(rollint-1).getGbx());
-                                p1circle.setTranslateY(workA.get(rollint-1).getGby());
-                                p1.setLoc(rollint-1);
-                                turn = true;
-                                rollint = 0;
+                               if(p1.getLoc() >= 1)
+                               {
+                                       p1.setMoney(p1.getMoney()+p1.getSalary());
+                                       setScoreBoard();
+                               }
+
+                            }
+                            if(mainpathp1 = true)
+                            {
+                                System.out.println("Test");
+//                                p1circle.setTranslateX(wholeBoard.get(rollint-1).getGbx());
+//                                p1circle.setTranslateY(wholeBoard.get(rollint-1).getGby());
+//                                turn = true;
+//                                rollint = 0;
                             }
 
                         }
@@ -591,6 +617,7 @@ public class window extends Application{
         primaryStage.setScene(scene1);
     //    primaryStage.setScene(tutorial);
         primaryStage.show();
+        primaryStage.setTitle("Game of Life");
     }
 
     public void setScoreBoard()
@@ -606,6 +633,7 @@ public class window extends Application{
             }
             p1SB = new VBox(5);
             Text player1 = new Text("Player 1:");
+            player1.setFill(Color.RED);
             Text name = new Text("Name: " + p1.getName());
             Text money = new Text("Money: " + String.valueOf(p1.getMoney()));
             Text LifeC = new Text("LifeCards: " + String.valueOf(p1.getLifeT()));
@@ -613,6 +641,7 @@ public class window extends Application{
             p1SB.getChildren().addAll(player1, name, money, LifeC, salery);
             p2SB = new VBox(5);
             Text player2 = new Text("Player 2:");
+            player2.setFill(Color.BLUE);
             Text name2 = new Text("Name: " + p2.getName());
             Text money2 = new Text("Money: " + String.valueOf(p2.getMoney()));
             Text LifeC2 = new Text("LifeCards: " + String.valueOf(p2.getLifeT()));
@@ -1007,6 +1036,8 @@ public class window extends Application{
             });
             menuButton btTutorial = new menuButton("Tutorial!");
             btTutorial.setOnKeyPressed(e->{
+                System.out.println("Pick your path, job, then spin the spinner to move!");
+                System.out.println("Hover over Hits to remove them");
 
             });
 
